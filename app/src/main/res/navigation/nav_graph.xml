@@ -9,12 +9,7 @@
         android:id="@+id/FirstFragment"
         android:name="edu.csce4623.lukelmiller.goale.FirstFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_first"/>
     <fragment
         android:id="@+id/SecondFragment"
         android:name="edu.csce4623.lukelmiller.goale.SecondFragment"
@@ -24,5 +19,20 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/First2Fragment"
+        android:name="edu.csce4623.lukelmiller.goale.First2Fragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_first2"/>
+    <fragment
+        android:id="@+id/SecondFragment"
+        android:name="edu.csce4623.lukelmiller.goale.SecondFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_second">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_First2Fragment"
+            app:destination="@id/First2Fragment" />
     </fragment>
 </navigation>

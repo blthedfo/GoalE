@@ -4,13 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#888787"
-    android:backgroundTint="#FFFFFF"
-    tools:context=".FirstFragment">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <TableLayout
-        android:layout_width="parent"
-        android:layout_height="parent"
+        android:layout_width="393dp"
+        android:layout_height="316dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +19,7 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btnHealth"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -30,7 +28,7 @@
                 app:cornerRadius="50dp" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btnFinancial"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -45,7 +43,7 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/btnQuality"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -54,7 +52,7 @@
                 app:cornerRadius="50dp" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btnQuantity"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -64,4 +62,5 @@
         </TableRow>
 
     </TableLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
