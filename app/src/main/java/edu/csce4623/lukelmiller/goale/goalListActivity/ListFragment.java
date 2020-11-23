@@ -1,0 +1,172 @@
+package edu.csce4623.lukelmiller.goale.goalListActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import androidx.fragment.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.ProgressBar;
+import java.util.ArrayList;
+import java.util.List;
+import edu.csce4623.lukelmiller.goale.R;
+import edu.csce4623.lukelmiller.goale.data.GoalItem;
+import edu.csce4623.lukelmiller.goale.editgoalactivity.EditGoal;
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
+import static com.google.common.base.Preconditions.checkNotNull;
+
+public class ListFragment extends Fragment {
+
+    private GoalItemsAdapter goalItemsAdapter;
+    private GoalListPresenter presenter;
+
+    public ListFragment(){
+
+    }
+
+     public static ListFragment newInstance(){
+         ListFragment fragment = new ListFragment();
+         return fragment;
+     }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        goalItemsAdapter = new GoalItemsAdapter(new ArrayList<GoalItem>(0), goalItemsListener);
+
+    }
+
+    @Override
+    public void onResume(){
+         super.onResume();
+         presenter.start();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+         View root = inflater.inflate(R.layout.fragment_list, container, false);
+         ListView listView = (ListView) root.findViewById(R.id.list);
+         listView.setAdapter(goalItemsAdapter);
+         root.findViewById(R.id.btnAddGoal).setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 presenter.addNewGoalItem();
+             }
+         });
+         return root;
+
+    }
+
+    public void setPresenter(GoalListPresenter presenter){
+         this.presenter = presenter;
+    }
+
+    public void showGoalItems(List<GoalItem> goalItemList){
+         goalItemsAdapter.replaceData(goalItemList);
+    }
+
+    public void showEditGoalItem(GoalItem item, int requestCode){
+        Intent editIntent = new Intent(getActivity(), EditGoal.class);
+        editIntent.putExtra("GoalItem", item);
+        startActivityForResult(editIntent, requestCode);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK){
+            if(data!=null){
+                //Check to make sure data object has a goalItem
+                if(data.hasExtra("result")){
+                    presenter.result(2, resultCode,(GoalItem)data.getSerializableExtra("GoalItem") );
+                }
+                else if(data.hasExtra("GoalItem")) {
+                    presenter.result(requestCode, resultCode,(GoalItem)data.getSerializableExtra("GoalItem") );
+                }
+            }
+        }
+        else if(resultCode == RESULT_CANCELED){
+
+        }
+    }
+
+    GoalItemListener goalItemsListener = new GoalItemListener(){
+        @Override
+        public void onGoalItemClick(GoalItem clickedGoalItem) {
+            Log.d("FRAGMENT","Open GoalItem Details");
+            //Grab item from the ListView click and pass to presenter
+            presenter.showExistingGoalItem(clickedGoalItem);
+        }
+    };
+
+
+
+
+
+
+    private static class GoalItemsAdapter extends BaseAdapter{
+         private List<GoalItem> goalItems;
+         private GoalItemListener goalItemListener;
+
+         public GoalItemsAdapter(List<GoalItem> goalItems, GoalItemListener itemListener){
+             setList(goalItems);
+             goalItemListener = itemListener;
+         }
+
+         public void replaceData(List<GoalItem> goalItems){
+             setList(goalItems);
+             notifyDataSetChanged();
+         }
+
+         private void setList(List<GoalItem> goalItems){
+             this.goalItems = checkNotNull(goalItems);
+         }
+
+         @Override
+         public int getCount(){ return goalItems.size(); }
+
+         @Override
+         public GoalItem getItem(int id){ return goalItems.get(id); }
+
+         @Override
+         public long getItemId(int i){ return i; }
+
+         @Override
+         public View getView(int i, View view, ViewGroup viewGroup){
+            View rowView = view;
+            if (rowView == null) {
+                LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+                rowView = inflater.inflate(R.layout.item_layout, viewGroup, false);
+            }
+
+            final GoalItem goalItem = getItem(i);
+
+            TextView titleTV = (TextView) rowView.findViewById(R.id.etItemTitle);
+            titleTV.setText(goalItem.getTitle());
+
+            ProgressBar progressBar = (ProgressBar) rowView.findViewById(R.id.etItemProgress);
+            int progress = (int) Math.ceil(goalItem.getCurrent()/goalItem.getEnd()*100);
+            if(progress>=100){
+                progress = 100;
+            }
+            progressBar.setProgress(progress);
+
+            rowView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    goalItemListener.onGoalItemClick(goalItem);
+                }
+            });
+            return rowView;
+         }
+
+    }
+
+    public interface GoalItemListener{
+        void onGoalItemClick(GoalItem clickedGoalItem);
+    }
+}

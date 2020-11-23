@@ -18,9 +18,13 @@
     <string name="title">Title</string>
     <string name="notes">Notes</string>
     <string name="direction">Direction</string>
-    <string name="start">Starting Point</string>
-    <string name="current">Current Point</string>
-    <string name="endGoal">End Goal</string>
+    <string name="start">Starting Point:</string>
+    <string name="startInput">I Started Here..</string>
+    <string name="current">Current Point:</string>
+    <string name="currentInput">I am Currently..</string>
+    <string name="goalInput">My End Goal Is..</string>
+    <string name="goal">Goal:</string>
+    <string name="zero">0%</string>
 
     <!-- Error messages -->
     <string name="error_fragment_message">An error occurred</string>
