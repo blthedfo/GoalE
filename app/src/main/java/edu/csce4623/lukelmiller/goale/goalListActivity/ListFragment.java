@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import edu.csce4623.lukelmiller.goale.R;
 import edu.csce4623.lukelmiller.goale.data.GoalItem;
-import edu.csce4623.lukelmiller.goale.editgoalactivity.EditGoal;
+import edu.csce4623.lukelmiller.goale.editgoalactivity.EditGoalActivity;
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -26,6 +26,7 @@ public class ListFragment extends Fragment {
     private GoalListPresenter presenter;
 
     public ListFragment(){
+        super(R.layout.fragment_list);
 
     }
 
@@ -71,7 +72,7 @@ public class ListFragment extends Fragment {
     }
 
     public void showEditGoalItem(GoalItem item, int requestCode){
-        Intent editIntent = new Intent(getActivity(), EditGoal.class);
+        Intent editIntent = new Intent(getActivity(), EditGoalActivity.class);
         editIntent.putExtra("GoalItem", item);
         startActivityForResult(editIntent, requestCode);
     }

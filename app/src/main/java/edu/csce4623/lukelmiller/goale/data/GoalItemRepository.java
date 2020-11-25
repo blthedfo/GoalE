@@ -4,7 +4,11 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.room.Room;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+
 import util.AppExecutors;
 
 public class GoalItemRepository {
@@ -15,23 +19,23 @@ public class GoalItemRepository {
     //Context
     private Context mContext;
     //Database
-    static GoalItemDatabase database;
     static GoalItemDao goalItemDao;
 
     //private constructor
     private GoalItemRepository(@NonNull AppExecutors appExecutors, @NonNull Context context){
         mAppExecutors = appExecutors;
         mContext = context;
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                synchronized (GoalItemRepository.class) {
-                    database = Room.databaseBuilder(mContext, GoalItemDatabase.class, "goal_db").build();
-                    goalItemDao = database.getGoalItemDao();
-                }
-            }
-        };
-        mAppExecutors.diskIO().execute(runnable);
+        goalItemDao = GoalItemDatabase.getInstance(mContext).getGoalItemDao();
+//        Runnable runnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                synchronized (GoalItemRepository.class) {
+//                    //GoalItemDatabase database = Room.databaseBuilder(mContext, GoalItemDatabase.class, "goal_db").allowMainThreadQueries().build();
+//                    goalItemDao = GoalItemDatabase.getInstance(mContext).getGoalItemDao();
+//                }
+//            }
+//        };
+//        mAppExecutors.diskIO().execute(runnable);
 
     }
 
@@ -49,16 +53,25 @@ public class GoalItemRepository {
 
 
     public List<GoalItem> getGoalItems() {
-//        Runnable runnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                synchronized (GoalItemRepository.class){
-//                    goalItems = goalItemDao.getAll();
-//                }
-//            }
-//        };
-//        mAppExecutors.diskIO().execute(runnable);
-        return goalItemDao.getAll();
+        final CountDownLatch latch = new CountDownLatch(1);
+        final List<GoalItem>[] goalItems = new List[]{new ArrayList<GoalItem>()};
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                synchronized (GoalItemRepository.class){
+                    goalItems[0] = goalItemDao.getAll();
+
+                }
+            }
+        };
+        mAppExecutors.diskIO().execute(runnable);
+        try {
+            latch.await();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return goalItems[0];
 
     }
     public void saveGoalItem(@NonNull final GoalItem goalItem) {
