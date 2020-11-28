@@ -12,10 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import edu.csce4623.lukelmiller.goale.R;
 import edu.csce4623.lukelmiller.goale.data.GoalItem;
+import edu.csce4623.lukelmiller.goale.data.GoalItemRepository;
 
 
 public class EditGoalActivity extends AppCompatActivity {
 
+
+    GoalItemRepository repo;
     public EditGoalActivity(){
         super(R.layout.activity_edit_goal);
     }
@@ -24,6 +27,7 @@ public class EditGoalActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if(savedInstanceState != null){
             Bundle bundle = new Bundle();
             Intent callingIntent = getIntent();

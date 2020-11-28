@@ -21,9 +21,7 @@ public class GoalListPresenter {
     public GoalListPresenter(@NonNull GoalItemRepository goalItemRepository, @NonNull ListFragment goalItemView){
         this.goalItemRepository = goalItemRepository;
         this.goalItemView = goalItemView;
-//        frag = ListFragment.newInstance();
-        //Make sure to pass the presenter into the view!
-        //goalItemView.setPresenter(this);
+        goalItemView.setPresenter(this);
     }
 
     public void start(){
@@ -74,7 +72,7 @@ public class GoalListPresenter {
 
         List<GoalItem> goalItems = goalItemRepository.getGoalItems();
 
-        if (goalItems.size() == 0){
+
             GoalItem temp = new GoalItem();
             temp.setId(-1);
             temp.setTitle("Test");
@@ -85,7 +83,7 @@ public class GoalListPresenter {
             temp.setStart(0);
             temp.setId(-1);
             temp.setUnit("Watts");
-        }
+
         goalItemView.showGoalItems(goalItems);
     }
 

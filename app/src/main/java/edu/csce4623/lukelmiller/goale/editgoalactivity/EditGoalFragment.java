@@ -19,6 +19,9 @@ import java.util.List;
 
 import edu.csce4623.lukelmiller.goale.R;
 import edu.csce4623.lukelmiller.goale.data.GoalItem;
+import edu.csce4623.lukelmiller.goale.data.GoalItemRepository;
+import edu.csce4623.lukelmiller.goale.goalListActivity.FullListActivity;
+import util.AppExecutors;
 
 public class EditGoalFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
@@ -33,6 +36,9 @@ public class EditGoalFragment extends Fragment implements AdapterView.OnItemSele
     Button btnDelete;
     ProgressBar progress;
     TextView tvPercentComplete;
+    GoalItemRepository repo;
+
+
 
     public EditGoalFragment(){
         super(R.layout.fragment_edit_goal);
@@ -40,7 +46,6 @@ public class EditGoalFragment extends Fragment implements AdapterView.OnItemSele
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
-
         etTitle = view.findViewById(R.id.etTitle);
         etStart = view.findViewById(R.id.etStart);
         etCurrent = view.findViewById(R.id.etCurrent);
@@ -49,6 +54,7 @@ public class EditGoalFragment extends Fragment implements AdapterView.OnItemSele
         units.setOnItemSelectedListener(this);
         etNotes = view.findViewById(R.id.etNotes);
         btnSave = view.findViewById(R.id.btnSave);
+        repo = GoalItemRepository.getInstance(new AppExecutors(),getActivity());
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -143,14 +149,36 @@ public class EditGoalFragment extends Fragment implements AdapterView.OnItemSele
 
     private void saveGoal(){
         goal.setTitle(etTitle.getText().toString());
-        if((etStart == null && etCurrent == null) || etEnd == null){
+        goal.setNote(etNotes.getText().toString());
+        //goal.setCategory();
+        if((etStart.getText() == null && etCurrent.getText() == null) || etEnd.getText() == null){
             //Alert Saying Cannot Save Goal Here
-            //finish();
+            Intent end = new Intent(getActivity(), FullListActivity.class);
+            startActivity(end);
 
+        }else if(etStart.getText() == null || etCurrent.getText() == null){
+            if (etStart.getText()==null){
+                goal.setStart(Float.parseFloat(etCurrent.getText().toString()));
+            }
+            else{
+                goal.setCurrent(Float.parseFloat(etStart.getText().toString()));
+            }
+        }else{
+
+            goal.setStart(Float.parseFloat(etStart.getText().toString()));
+            goal.setCurrent(Float.parseFloat(etCurrent.getText().toString()));
+            goal.setEnd(Float.parseFloat(etEnd.getText().toString()));
+            //goal.setCategory();
         }
+
+        repo.saveGoalItem(goal);
+        Intent end = new Intent(getActivity(), FullListActivity.class);
+        startActivity(end);
     }
     private void deleteGoal(){
-
+        repo.deleteGoalItem(goal);
+        Intent end = new Intent(getActivity(), FullListActivity.class);
+        startActivity(end);
     }
 
 

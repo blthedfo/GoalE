@@ -148,9 +148,21 @@ public class ListFragment extends Fragment {
 
             TextView titleTV = (TextView) rowView.findViewById(R.id.etItemTitle);
             titleTV.setText(goalItem.getTitle());
-
             ProgressBar progressBar = (ProgressBar) rowView.findViewById(R.id.etItemProgress);
-            int progress = (int) Math.ceil(goalItem.getCurrent()/goalItem.getEnd()*100);
+            int progress = 0;
+            if(goalItem.getCurrent()< goalItem.getEnd() && goalItem.getEnd()!=0){
+                progress = (int) Math.ceil(goalItem.getCurrent()/goalItem.getEnd()*100);
+            }else if(goalItem.getCurrent()< goalItem.getEnd() && goalItem.getEnd()==0){
+                progress = (int) Math.ceil(goalItem.getCurrent()/0.00000001*100);
+            }else if(goalItem.getEnd() < goalItem.getCurrent() && goalItem.getCurrent()!=0){
+                progress = (int) Math.ceil(goalItem.getEnd()/goalItem.getCurrent()*100);
+            }else if(goalItem.getEnd() < goalItem.getCurrent() && goalItem.getCurrent()==0){
+                progress = (int) Math.ceil(goalItem.getEnd()/0.00000001*100);
+            }else{
+                progress = 0;
+            }
+
+
             if(progress>=100){
                 progress = 100;
             }
