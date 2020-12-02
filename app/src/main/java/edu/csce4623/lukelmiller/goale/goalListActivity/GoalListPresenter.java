@@ -8,6 +8,7 @@ import java.util.List;
 
 import edu.csce4623.lukelmiller.goale.data.GoalItem;
 import edu.csce4623.lukelmiller.goale.data.GoalItemRepository;
+import edu.csce4623.lukelmiller.goale.data.GoalListDataSource;
 
 public class GoalListPresenter implements GoalListContract.Presenter{
 
@@ -71,21 +72,37 @@ public class GoalListPresenter implements GoalListContract.Presenter{
 
     public void loadGoalItems(){
 
-        List<GoalItem> goalItems = goalItemRepository.getGoalItems();
+        List<GoalItem> goalItems;
+        goalItemRepository.getGoalItems(new GoalListDataSource.LoadGoalItemsCallback() {
+            @Override
+            public void onGoalItemsLoaded(List<GoalItem> goalItems) {
+                if(goalItems.size() == 0) {
+                    GoalItem temp = new GoalItem();
+                    temp.setId(-1);
+                    temp.setTitle("Test");
+                    temp.setCategory(1);
+                    temp.setCurrent(0);
+                    temp.setNote("testing testing");
+                    temp.setEnd(0);
+                    temp.setStart(0);
+                    temp.setId(-1);
+                    temp.setUnit("Watts");
+                    goalItems.add(temp);
+                }
+
+                goalItemView.showGoalItems(goalItems);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+
+            }
+        });
 
 
-            GoalItem temp = new GoalItem();
-            temp.setId(-1);
-            temp.setTitle("Test");
-            temp.setCategory(1);
-            temp.setCurrent(0);
-            temp.setNote("testing testing");
-            temp.setEnd(0);
-            temp.setStart(0);
-            temp.setId(-1);
-            temp.setUnit("Watts");
 
-        goalItemView.showGoalItems(goalItems);
+
+
     }
 
     public void deleteGoalItem(GoalItem item){

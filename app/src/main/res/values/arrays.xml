@@ -13,7 +13,6 @@
         <item>days</item>
         <item>kg</item>
         <item>reps</item>
-        <item></item>
     </string-array>
     <string-array name="finance">
         <item>dollars</item>

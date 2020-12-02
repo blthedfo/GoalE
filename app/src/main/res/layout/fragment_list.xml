@@ -31,7 +31,8 @@
             android:layout_margin="@dimen/fab_margin"
             app:layout_constraintBottom_toBottomOf="@+id/list"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            app:srcCompat="@android:drawable/ic_input_add"
+            android:contentDescription = "Add New Goal" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

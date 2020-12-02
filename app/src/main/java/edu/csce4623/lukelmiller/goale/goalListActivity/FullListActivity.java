@@ -31,7 +31,7 @@ public class FullListActivity extends AppCompatActivity{
             checkNotNull(goalListFragment);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-//            transaction.replace(R.id.fullListFragmentFrame, goalListFragment).commit();
+            //transaction.replace(R.id.fragList, goalListFragment).commit();
             transaction.add(R.id.fragList, goalListFragment);
             transaction.commit();
         }

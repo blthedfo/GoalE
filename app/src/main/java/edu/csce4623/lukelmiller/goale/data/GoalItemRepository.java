@@ -11,7 +11,7 @@ import java.util.concurrent.CountDownLatch;
 
 import util.AppExecutors;
 
-public class GoalItemRepository {
+public class GoalItemRepository implements GoalListDataSource {
 
     private static volatile GoalItemRepository INSTANCE;
     //Thread pool for execution on other threads
@@ -20,6 +20,7 @@ public class GoalItemRepository {
     private Context mContext;
     //Database
     static GoalItemDao goalItemDao;
+
 
     //private constructor
     private GoalItemRepository(@NonNull AppExecutors appExecutors, @NonNull Context context){
@@ -51,29 +52,35 @@ public class GoalItemRepository {
         return INSTANCE;
     }
 
+    @Override
+    public void getGoalItems(@NonNull final LoadGoalItemsCallback callback) {
 
-    public List<GoalItem> getGoalItems() {
-        final CountDownLatch latch = new CountDownLatch(1);
-        final List<GoalItem>[] goalItems = new List[]{new ArrayList<GoalItem>()};
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                synchronized (GoalItemRepository.class){
-                    goalItems[0] = goalItemDao.getAll();
-
-                }
+                final List<GoalItem> items = goalItemDao.getAll();
+                mAppExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(items == null){
+                            callback.onDataNotAvailable();
+                        } else{
+                            callback.onGoalItemsLoaded(items);
+                        }
+                    }
+                });
             }
         };
         mAppExecutors.diskIO().execute(runnable);
-        try {
-            latch.await();
+//        synchronized (items){
+//            return items;
+//        }
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return goalItems[0];
 
     }
+
+
+    @Override
     public void saveGoalItem(@NonNull final GoalItem goalItem) {
         Runnable runnable = new Runnable(){
             @Override
@@ -86,6 +93,8 @@ public class GoalItemRepository {
         mAppExecutors.diskIO().execute(runnable);
 
     }
+
+    @Override
     public void createGoalItem(@NonNull final GoalItem goalItem) {
         Runnable runnable = new Runnable(){
             @Override

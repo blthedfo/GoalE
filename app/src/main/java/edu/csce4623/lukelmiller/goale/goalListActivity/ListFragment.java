@@ -26,7 +26,7 @@ public class ListFragment extends Fragment implements GoalListContract.View{
     private GoalListContract.Presenter presenter;
 
     public ListFragment(){
-        super(R.layout.fragment_list);
+        //super(R.layout.fragment_list);
 
     }
 

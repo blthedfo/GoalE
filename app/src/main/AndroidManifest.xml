@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GoalE">
 
+
         <activity android:name=".editgoalactivity.EditGoalActivity"/>
 
 
