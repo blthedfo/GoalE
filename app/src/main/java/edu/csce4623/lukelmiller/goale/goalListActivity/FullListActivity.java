@@ -36,18 +36,18 @@ public class FullListActivity extends AppCompatActivity{
             transaction.commit();
         }
         goalListPresenter = new GoalListPresenter(GoalItemRepository.getInstance(new AppExecutors(),getApplicationContext()),goalListFragment);
-        GoalItemRepository repo = GoalItemRepository.getInstance(new AppExecutors(),getApplicationContext());
-        GoalItem goal = new GoalItem();
-        goal.setTitle("This Test");
-        goal.setCategory(1);
-        goal.setCurrent(10);
-        goal.setNote("Notes");
-        goal.setEnd(100);
-        goal.setStart(0);
-        goal.setId(2);
-        goal.setUnit("Calories");
-        goal.setNote("Goalies");
-        repo.createGoalItem(goal);
+//        GoalItemRepository repo = GoalItemRepository.getInstance(new AppExecutors(),getApplicationContext());
+//        GoalItem goal = new GoalItem();
+//        goal.setTitle("This Test");
+//        goal.setCategory(1);
+//        goal.setCurrent(10);
+//        goal.setNote("Notes");
+//        goal.setEnd(100);
+//        goal.setStart(0);
+//        goal.setId(2);
+//        goal.setUnit("Calories");
+//        goal.setNote("Goalies");
+//        repo.createGoalItem(goal);
 
 //        goalListPresenter.loadGoalItems();
     }

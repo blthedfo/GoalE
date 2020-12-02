@@ -20,10 +20,10 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class ListFragment extends Fragment {
+public class ListFragment extends Fragment implements GoalListContract.View{
 
     private GoalItemsAdapter goalItemsAdapter;
-    private GoalListPresenter presenter;
+    private GoalListContract.Presenter presenter;
 
     public ListFragment(){
         super(R.layout.fragment_list);
@@ -63,7 +63,7 @@ public class ListFragment extends Fragment {
 
     }
 
-    public void setPresenter(GoalListPresenter presenter){
+    public void setPresenter(GoalListContract.Presenter presenter){
          this.presenter = presenter;
     }
 

@@ -9,16 +9,16 @@ import java.util.List;
 import edu.csce4623.lukelmiller.goale.data.GoalItem;
 import edu.csce4623.lukelmiller.goale.data.GoalItemRepository;
 
-public class GoalListPresenter {
+public class GoalListPresenter implements GoalListContract.Presenter{
 
     private static GoalItemRepository goalItemRepository;
-    private final ListFragment goalItemView;
+    private final GoalListContract.View goalItemView;
 //    private static ListFragment frag;
     private static final int CREATE_GOAL_REQUEST = 0;
     private static final int UPDATE_GOAL_REQUEST = 1;
     private static final int DELETE_GOAL_REQUEST = 2;
 
-    public GoalListPresenter(@NonNull GoalItemRepository goalItemRepository, @NonNull ListFragment goalItemView){
+    public GoalListPresenter(@NonNull GoalItemRepository goalItemRepository, @NonNull GoalListContract.View goalItemView){
         this.goalItemRepository = goalItemRepository;
         this.goalItemView = goalItemView;
         goalItemView.setPresenter(this);
@@ -64,6 +64,7 @@ public class GoalListPresenter {
         goalItemRepository.createGoalItem(item);
     }
 
+    @Override
     public void updateGoalItem(GoalItem item){
         goalItemRepository.saveGoalItem(item);
     }
