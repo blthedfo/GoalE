@@ -139,6 +139,8 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         units.setAdapter(dataAdapter);
+        int index = list.indexOf(goal.getUnit());
+        units.setSelection(index);
 
         etNotes.setText(goal.getNote());
 
