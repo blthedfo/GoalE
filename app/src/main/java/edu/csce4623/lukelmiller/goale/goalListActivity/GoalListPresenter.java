@@ -37,7 +37,7 @@ public class GoalListPresenter implements GoalListContract.Presenter{
         goal.setNote("Notes");
         goal.setEnd(0);
         goal.setStart(0);
-        goal.setId(-1);
+        //goal.setId(-1);
         goal.setUnit("");
         goalItemView.showEditGoalItem(goal,CREATE_GOAL_REQUEST);
     }
@@ -76,7 +76,7 @@ public class GoalListPresenter implements GoalListContract.Presenter{
         goalItemRepository.getGoalItems(new GoalListDataSource.LoadGoalItemsCallback() {
             @Override
             public void onGoalItemsLoaded(List<GoalItem> goalItems) {
-                if(goalItems.size() == 0) {
+               /* if(goalItems.size() == 0) {
                     GoalItem temp = new GoalItem();
                     temp.setId(-1);
                     temp.setTitle("Test");
@@ -88,7 +88,7 @@ public class GoalListPresenter implements GoalListContract.Presenter{
                     temp.setId(-1);
                     temp.setUnit("Watts");
                     goalItems.add(temp);
-                }
+                }*/
 
                 goalItemView.showGoalItems(goalItems);
             }
@@ -98,10 +98,6 @@ public class GoalListPresenter implements GoalListContract.Presenter{
 
             }
         });
-
-
-
-
 
     }
 
