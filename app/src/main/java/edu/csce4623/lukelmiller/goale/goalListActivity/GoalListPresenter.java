@@ -37,7 +37,6 @@ public class GoalListPresenter implements GoalListContract.Presenter{
         goal.setNote("Notes");
         goal.setEnd(0);
         goal.setStart(0);
-        //goal.setId(-1);
         goal.setUnit("");
         goalItemView.showEditGoalItem(goal,CREATE_GOAL_REQUEST);
     }
