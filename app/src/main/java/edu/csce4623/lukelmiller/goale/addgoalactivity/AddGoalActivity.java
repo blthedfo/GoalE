@@ -22,11 +22,9 @@ public class AddGoalActivity extends AppCompatActivity {
     Button btnQuality;
     Button btnQuantity;
     private static final int CREATE_GOAL_REQUEST = 0;
-    private final GoalListContract.View goalItemView;
 
-    public AddGoalActivity(GoalListContract.View goalItemView) {
+    public AddGoalActivity() {
         super(layout.activity_add_goal);
-        this.goalItemView = goalItemView;
     }
 
     @Override
