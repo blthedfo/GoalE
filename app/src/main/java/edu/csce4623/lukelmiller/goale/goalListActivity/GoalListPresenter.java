@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import java.util.List;
 
+import edu.csce4623.lukelmiller.goale.addgoalactivity.AddGoalActivity;
 import edu.csce4623.lukelmiller.goale.data.GoalItem;
 import edu.csce4623.lukelmiller.goale.data.GoalItemRepository;
 import edu.csce4623.lukelmiller.goale.data.GoalListDataSource;
@@ -14,6 +15,7 @@ public class GoalListPresenter implements GoalListContract.Presenter{
 
     private static GoalItemRepository goalItemRepository;
     private final GoalListContract.View goalItemView;
+    private AddGoalActivity addGoal;
 //    private static ListFragment frag;
     private static final int CREATE_GOAL_REQUEST = 0;
     private static final int UPDATE_GOAL_REQUEST = 1;
@@ -22,6 +24,7 @@ public class GoalListPresenter implements GoalListContract.Presenter{
     public GoalListPresenter(@NonNull GoalItemRepository goalItemRepository, @NonNull GoalListContract.View goalItemView){
         this.goalItemRepository = goalItemRepository;
         this.goalItemView = goalItemView;
+        this.addGoal = addGoal;
         goalItemView.setPresenter(this);
     }
 
@@ -39,7 +42,7 @@ public class GoalListPresenter implements GoalListContract.Presenter{
         goal.setStart(0);
         //goal.setId(-1);
         goal.setUnit("");
-        goalItemView.showEditGoalItem(goal,CREATE_GOAL_REQUEST);
+        goalItemView.showAddGoalItem(goal,CREATE_GOAL_REQUEST);
     }
 
     public void showExistingGoalItem(GoalItem item){

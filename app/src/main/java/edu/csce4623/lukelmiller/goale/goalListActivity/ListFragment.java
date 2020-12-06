@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import java.util.ArrayList;
 import java.util.List;
 import edu.csce4623.lukelmiller.goale.R;
+import edu.csce4623.lukelmiller.goale.addgoalactivity.AddGoalActivity;
 import edu.csce4623.lukelmiller.goale.data.GoalItem;
 import edu.csce4623.lukelmiller.goale.editgoalactivity.EditGoalActivity;
 import static android.app.Activity.RESULT_CANCELED;
@@ -75,6 +76,12 @@ public class ListFragment extends Fragment implements GoalListContract.View{
         Intent editIntent = new Intent(getActivity(), EditGoalActivity.class);
         editIntent.putExtra("GoalItem", item);
         startActivityForResult(editIntent, requestCode);
+    }
+
+    public void showAddGoalItem(GoalItem item, int requestCode){
+        Intent addIntent = new Intent(getActivity(), AddGoalActivity.class);
+        addIntent.putExtra("GoalItem", item);
+        startActivityForResult(addIntent, requestCode);
     }
 
     @Override

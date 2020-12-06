@@ -14,6 +14,9 @@ public interface GoalListContract {
 
 
         void showEditGoalItem(GoalItem item, int requestCode);
+
+
+        void showAddGoalItem(GoalItem item, int requestCode);
     }
 
     interface Presenter{

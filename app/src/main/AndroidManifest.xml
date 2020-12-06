@@ -16,6 +16,8 @@
         <activity android:name=".editgoalactivity.EditGoalActivity"/>
 
 
+        <activity android:name=".addgoalactivity.AddGoalActivity"
+            tools:ignore="Instantiatable" />
 
 
         <activity android:name=".goalListActivity.FullListActivity">
