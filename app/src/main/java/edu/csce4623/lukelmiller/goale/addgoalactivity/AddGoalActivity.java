@@ -22,6 +22,7 @@ public class AddGoalActivity extends AppCompatActivity {
     Button btnQuality;
     Button btnQuantity;
     private static final int CREATE_GOAL_REQUEST = 0;
+    private GoalListContract.Presenter presenter;
 
     public AddGoalActivity() {
         super(layout.activity_add_goal);
@@ -37,33 +38,44 @@ public class AddGoalActivity extends AppCompatActivity {
         btnQuality = findViewById(R.id.btnQuality);
         btnQuantity = findViewById(R.id.btnQuantity);
 
-        Intent EditIntent = new Intent(AddGoalActivity.this, EditGoalActivity.class);
+        //Intent EditIntent = new Intent(AddGoalActivity.this, EditGoalActivity.class);
 
         btnHealth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goal.setCategory(1);
+                //goal.setCategory(1);
+                Intent EditIntent = new Intent(view.getContext(),EditGoalActivity.class);
+                //EditIntent.putExtra("Goal item",goal);
                 startActivity(EditIntent);
+
+
+
             }
         });
         btnFinancial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goal.setCategory(2);
+                //goal.setCategory(2);
+                Intent EditIntent = new Intent(view.getContext(),EditGoalActivity.class);
+                //EditIntent.putExtra("Goal item",goal);
                 startActivity(EditIntent);
             }
         });
         btnQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goal.setCategory(3);
+               // goal.setCategory(3);
+                Intent EditIntent = new Intent(view.getContext(),EditGoalActivity.class);
+                //EditIntent.putExtra("Goal item",goal);
                 startActivity(EditIntent);
             }
         });
         btnQuality.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goal.setCategory(4);
+                //goal.setCategory(4);
+                Intent EditIntent = new Intent(view.getContext(),EditGoalActivity.class);
+                //EditIntent.putExtra("Goal item",goal);
                 startActivity(EditIntent);
             }
         });
