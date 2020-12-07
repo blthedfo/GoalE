@@ -37,7 +37,7 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
     EditText etNotes;
     Button btnSave;
     Button btnDelete;
-    ProgressBar progress;
+    ProgressBar progressBar;
     TextView tvPercentComplete;
     //GoalItemRepository repo;
 
@@ -74,7 +74,7 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
                 deleteGoal();
             }
         });
-        progress = findViewById(R.id.progress);
+        progressBar = findViewById(R.id.progress);
         tvPercentComplete = findViewById(R.id.tvPercentComplete);
         if(callingIntent.hasExtra("GoalItem")){
             goal = (GoalItem) callingIntent.getSerializableExtra("GoalItem");
@@ -144,26 +144,20 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
 
         etNotes.setText(goal.getNote());
 
-        int percentProgress;
-        if(goal.getEnd() > goal.getCurrent()){
-            if(goal.getEnd() == 0){
-                percentProgress = (int) (goal.getCurrent() / 0.0000001 * 100);
-            }
-            else{
-                percentProgress = (int) (goal.getCurrent() / goal.getEnd() * 100);
-            }
+        int progress = 0;
+        if(goal.getCurrent()< goal.getEnd() && goal.getEnd()!=0){
+            progress = (int) Math.ceil(goal.getCurrent()/goal.getEnd()*100);
+        }else if(goal.getCurrent()< goal.getEnd() && goal.getEnd()==0){
+            progress = (int) Math.ceil(goal.getCurrent()/0.00000001*100);
+        }else if(goal.getEnd() < goal.getCurrent() && goal.getCurrent()!=0){
+            progress = (int) Math.ceil(goal.getEnd()/goal.getCurrent()*100);
+        }else if(goal.getEnd() < goal.getCurrent() && goal.getCurrent()==0){
+            progress = (int) Math.ceil(goal.getEnd()/0.00000001*100);
         }else{
-            if(goal.getCurrent() == 0){
-                percentProgress = (int) (goal.getEnd() / 0.0000001 * 100);
-            }
-            else{
-                percentProgress = (int) (goal.getEnd() / goal.getCurrent() * 100);
-            }
+            progress = 0;
         }
-        progress.setProgress(percentProgress);
-        tvPercentComplete.setText((percentProgress+ "%"));
-
-
+        progressBar.setProgress(progress);
+        tvPercentComplete.setText((progress+ "%"));
 
     }
 
@@ -171,7 +165,7 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
     private void saveGoal(){
         goal.setTitle(etTitle.getText().toString());
         goal.setNote(etNotes.getText().toString());
-        //goal.setCategory();
+        //goal.setCategory(goal.getCategory());
         if((etStart.getText() == null && etCurrent.getText() == null) || etEnd.getText() == null){
             //Alert Saying Cannot Save Goal Here
 //            Intent end = new Intent(getActivity(), FullListActivity.class);
@@ -193,7 +187,7 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
             goal.setStart(Float.parseFloat(etStart.getText().toString()));
             goal.setCurrent(Float.parseFloat(etCurrent.getText().toString()));
             goal.setEnd(Float.parseFloat(etEnd.getText().toString()));
-            //goal.setCategory();
+            //goal.setCategory(goal.getCategory());
         }
 
 //        Intent end = new Intent(getActivity(), FullListActivity.class);

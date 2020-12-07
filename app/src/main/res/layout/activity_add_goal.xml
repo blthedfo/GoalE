@@ -7,6 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <TableLayout
+        android:id="@+id/tableLayout"
         android:layout_width="393dp"
         android:layout_height="316dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -62,5 +63,17 @@
         </TableRow>
 
     </TableLayout>
+
+    <TextView
+        android:id="@+id/tvCategories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GOAL CATEGORY"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

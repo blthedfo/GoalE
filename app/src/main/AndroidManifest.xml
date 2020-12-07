@@ -16,6 +16,9 @@
         <activity android:name=".editgoalactivity.EditGoalActivity"/>
 
 
+        <activity android:name=".addgoalactivity.AddGoalActivity" />
+
+        <activity android:name=".categoryProgress.categoryProgressView" />
 
 
         <activity android:name=".goalListActivity.FullListActivity">

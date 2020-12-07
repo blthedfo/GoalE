@@ -3,6 +3,8 @@ package edu.csce4623.lukelmiller.goale.goalListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,8 @@ import android.widget.ProgressBar;
 import java.util.ArrayList;
 import java.util.List;
 import edu.csce4623.lukelmiller.goale.R;
+import edu.csce4623.lukelmiller.goale.addgoalactivity.AddGoalActivity;
+import edu.csce4623.lukelmiller.goale.categoryProgress.categoryProgressView;
 import edu.csce4623.lukelmiller.goale.data.GoalItem;
 import edu.csce4623.lukelmiller.goale.editgoalactivity.EditGoalActivity;
 import static android.app.Activity.RESULT_CANCELED;
@@ -39,7 +43,6 @@ public class ListFragment extends Fragment implements GoalListContract.View{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         goalItemsAdapter = new GoalItemsAdapter(new ArrayList<GoalItem>(0), goalItemsListener);
-
     }
 
     @Override
@@ -50,6 +53,7 @@ public class ListFragment extends Fragment implements GoalListContract.View{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
          View root = inflater.inflate(R.layout.fragment_list, container, false);
          ListView listView = (ListView) root.findViewById(R.id.list);
          listView.setAdapter(goalItemsAdapter);
@@ -57,6 +61,13 @@ public class ListFragment extends Fragment implements GoalListContract.View{
              @Override
              public void onClick(View v) {
                  presenter.addNewGoalItem();
+             }
+         });
+
+         root.findViewById(R.id.btnAllCategories).setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 presenter.showAllProgressBars();
              }
          });
          return root;
@@ -68,13 +79,31 @@ public class ListFragment extends Fragment implements GoalListContract.View{
     }
 
     public void showGoalItems(List<GoalItem> goalItemList){
-         goalItemsAdapter.replaceData(goalItemList);
+        if(goalItemList.size() == 0) {
+            presenter.addNewGoalItem();
+        }
+        else {
+            goalItemsAdapter.replaceData(goalItemList);
+        }
     }
 
     public void showEditGoalItem(GoalItem item, int requestCode){
         Intent editIntent = new Intent(getActivity(), EditGoalActivity.class);
         editIntent.putExtra("GoalItem", item);
         startActivityForResult(editIntent, requestCode);
+    }
+
+    public void showAddGoalItem(GoalItem item, int requestCode){
+        Intent addIntent = new Intent(getActivity(), AddGoalActivity.class);
+        addIntent.putExtra("GoalItem", item);
+        startActivityForResult(addIntent, requestCode);
+    }
+
+    public void showCategoryProgress(List<GoalItem> goalItemList, int requestCode){
+        Intent categoryIntent = new Intent(getActivity(), categoryProgressView.class);
+        categoryIntent.putExtra("GoalItem", (Parcelable) goalItemList);
+        startActivityForResult(categoryIntent,requestCode);
+
     }
 
     @Override
