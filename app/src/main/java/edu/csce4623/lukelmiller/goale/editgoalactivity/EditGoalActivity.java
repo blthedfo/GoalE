@@ -163,15 +163,13 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
         progress.setProgress(percentProgress);
         tvPercentComplete.setText((percentProgress+ "%"));
 
-
-
     }
 
 
     private void saveGoal(){
         goal.setTitle(etTitle.getText().toString());
         goal.setNote(etNotes.getText().toString());
-        //goal.setCategory();
+        //goal.setCategory(goal.getCategory());
         if((etStart.getText() == null && etCurrent.getText() == null) || etEnd.getText() == null){
             //Alert Saying Cannot Save Goal Here
 //            Intent end = new Intent(getActivity(), FullListActivity.class);
@@ -193,7 +191,7 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
             goal.setStart(Float.parseFloat(etStart.getText().toString()));
             goal.setCurrent(Float.parseFloat(etCurrent.getText().toString()));
             goal.setEnd(Float.parseFloat(etEnd.getText().toString()));
-            //goal.setCategory();
+            //goal.setCategory(goal.getCategory());
         }
 
 //        Intent end = new Intent(getActivity(), FullListActivity.class);

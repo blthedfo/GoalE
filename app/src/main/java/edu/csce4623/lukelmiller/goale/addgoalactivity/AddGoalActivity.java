@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,8 +23,12 @@ public class AddGoalActivity extends AppCompatActivity {
     Button btnFinancial;
     Button btnQuality;
     Button btnQuantity;
-    private static final int CREATE_GOAL_REQUEST = 0;
-    private GoalListContract.Presenter presenter;
+    EditText etTitle;
+    EditText etStart;
+    EditText etCurrent;
+    EditText etEnd;
+    EditText etNotes;
+    GoalListContract.Presenter presenter;
 
     public AddGoalActivity() {
         super(layout.activity_add_goal);
@@ -50,12 +55,11 @@ public class AddGoalActivity extends AppCompatActivity {
                     goal.setCategory(1);
                     Intent editIntent = new Intent(view.getContext(), EditGoalActivity.class);
                     editIntent.putExtra("GoalItem",goal);
-                    startActivity(editIntent);
+                    startActivityForResult(editIntent, 2);
                 }
                 else{
                     Log.d("error","No Goal Found");
                 }
-                finish();
             }
         });
         btnFinancial.setOnClickListener(new View.OnClickListener() {
@@ -66,12 +70,11 @@ public class AddGoalActivity extends AppCompatActivity {
                     goal.setCategory(2);
                     Intent editIntent = new Intent(view.getContext(), EditGoalActivity.class);
                     editIntent.putExtra("GoalItem",goal);
-                    startActivity(editIntent);
+                    startActivityForResult(editIntent, 2);
                 }
                 else{
                     Log.d("error","No Goal Found");
                 }
-                finish();
             }
         });
         btnQuantity.setOnClickListener(new View.OnClickListener() {
@@ -82,12 +85,11 @@ public class AddGoalActivity extends AppCompatActivity {
                     goal.setCategory(3);
                     Intent editIntent = new Intent(view.getContext(), EditGoalActivity.class);
                     editIntent.putExtra("GoalItem",goal);
-                    startActivity(editIntent);
+                    startActivityForResult(editIntent, 2);
                 }
                 else{
                     Log.d("error","No Goal Found");
                 }
-                finish();
             }
         });
         btnQuality.setOnClickListener(new View.OnClickListener() {
@@ -98,14 +100,30 @@ public class AddGoalActivity extends AppCompatActivity {
                     goal.setCategory(4);
                     Intent editIntent = new Intent(view.getContext(), EditGoalActivity.class);
                     editIntent.putExtra("GoalItem",goal);
-                    startActivity(editIntent);
+                    startActivityForResult(editIntent, 2);
                 }
                 else{
                     Log.d("error","No Goal Found");
                 }
-                finish();
             }
         });
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (data != null) {
+                goal = (GoalItem)data.getSerializableExtra("GoalItem");
+                Intent end = new Intent();
+                end.putExtra("GoalItem", goal);
+                setResult(RESULT_OK,end);
+            }
+        } else if (resultCode == RESULT_CANCELED) {
+
+        }
+        finish();
     }
 
 }
