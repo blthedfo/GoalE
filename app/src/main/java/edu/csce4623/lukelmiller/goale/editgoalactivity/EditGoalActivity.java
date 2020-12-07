@@ -37,7 +37,7 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
     EditText etNotes;
     Button btnSave;
     Button btnDelete;
-    ProgressBar progress;
+    ProgressBar progressBar;
     TextView tvPercentComplete;
     //GoalItemRepository repo;
 
@@ -74,7 +74,7 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
                 deleteGoal();
             }
         });
-        progress = findViewById(R.id.progress);
+        progressBar = findViewById(R.id.progress);
         tvPercentComplete = findViewById(R.id.tvPercentComplete);
         if(callingIntent.hasExtra("GoalItem")){
             goal = (GoalItem) callingIntent.getSerializableExtra("GoalItem");
@@ -144,24 +144,20 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
 
         etNotes.setText(goal.getNote());
 
-        int percentProgress;
-        if(goal.getEnd() > goal.getCurrent()){
-            if(goal.getEnd() == 0){
-                percentProgress = (int) (goal.getCurrent() / 0.0000001 * 100);
-            }
-            else{
-                percentProgress = (int) (goal.getCurrent() / goal.getEnd() * 100);
-            }
+        int progress = 0;
+        if(goal.getCurrent()< goal.getEnd() && goal.getEnd()!=0){
+            progress = (int) Math.ceil(goal.getCurrent()/goal.getEnd()*100);
+        }else if(goal.getCurrent()< goal.getEnd() && goal.getEnd()==0){
+            progress = (int) Math.ceil(goal.getCurrent()/0.00000001*100);
+        }else if(goal.getEnd() < goal.getCurrent() && goal.getCurrent()!=0){
+            progress = (int) Math.ceil(goal.getEnd()/goal.getCurrent()*100);
+        }else if(goal.getEnd() < goal.getCurrent() && goal.getCurrent()==0){
+            progress = (int) Math.ceil(goal.getEnd()/0.00000001*100);
         }else{
-            if(goal.getCurrent() == 0){
-                percentProgress = (int) (goal.getEnd() / 0.0000001 * 100);
-            }
-            else{
-                percentProgress = (int) (goal.getEnd() / goal.getCurrent() * 100);
-            }
+            progress = 0;
         }
-        progress.setProgress(percentProgress);
-        tvPercentComplete.setText((percentProgress+ "%"));
+        progressBar.setProgress(progress);
+        tvPercentComplete.setText((progress+ "%"));
 
     }
 
