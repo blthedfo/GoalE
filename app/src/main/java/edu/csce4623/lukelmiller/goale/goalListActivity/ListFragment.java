@@ -43,7 +43,6 @@ public class ListFragment extends Fragment implements GoalListContract.View{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         goalItemsAdapter = new GoalItemsAdapter(new ArrayList<GoalItem>(0), goalItemsListener);
-
     }
 
     @Override
@@ -54,6 +53,7 @@ public class ListFragment extends Fragment implements GoalListContract.View{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
          View root = inflater.inflate(R.layout.fragment_list, container, false);
          ListView listView = (ListView) root.findViewById(R.id.list);
          listView.setAdapter(goalItemsAdapter);
@@ -79,7 +79,12 @@ public class ListFragment extends Fragment implements GoalListContract.View{
     }
 
     public void showGoalItems(List<GoalItem> goalItemList){
-         goalItemsAdapter.replaceData(goalItemList);
+        if(goalItemList.size() == 0) {
+            presenter.addNewGoalItem();
+        }
+        else {
+            goalItemsAdapter.replaceData(goalItemList);
+        }
     }
 
     public void showEditGoalItem(GoalItem item, int requestCode){
