@@ -3,6 +3,8 @@ package edu.csce4623.lukelmiller.goale.goalListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import edu.csce4623.lukelmiller.goale.R;
 import edu.csce4623.lukelmiller.goale.addgoalactivity.AddGoalActivity;
+import edu.csce4623.lukelmiller.goale.categoryProgress.categoryProgressView;
 import edu.csce4623.lukelmiller.goale.data.GoalItem;
 import edu.csce4623.lukelmiller.goale.editgoalactivity.EditGoalActivity;
 import static android.app.Activity.RESULT_CANCELED;
@@ -60,6 +63,13 @@ public class ListFragment extends Fragment implements GoalListContract.View{
                  presenter.addNewGoalItem();
              }
          });
+
+         root.findViewById(R.id.btnAllCategories).setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 presenter.showAllProgressBars();
+             }
+         });
          return root;
 
     }
@@ -82,6 +92,13 @@ public class ListFragment extends Fragment implements GoalListContract.View{
         Intent addIntent = new Intent(getActivity(), AddGoalActivity.class);
         addIntent.putExtra("GoalItem", item);
         startActivityForResult(addIntent, requestCode);
+    }
+
+    public void showCategoryProgress(List<GoalItem> goalItemList, int requestCode){
+        Intent categoryIntent = new Intent(getActivity(), categoryProgressView.class);
+        categoryIntent.putExtra("GoalItem", (Parcelable) goalItemList);
+        startActivityForResult(categoryIntent,requestCode);
+
     }
 
     @Override
