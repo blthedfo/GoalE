@@ -55,7 +55,7 @@ public class AddGoalActivity extends AppCompatActivity {
                     goal.setCategory(1);
                     Intent editIntent = new Intent(view.getContext(), EditGoalActivity.class);
                     editIntent.putExtra("GoalItem",goal);
-                    startActivityForResult(editIntent, 2);
+                    startActivityForResult(editIntent, 0);
                 }
                 else{
                     Log.d("error","No Goal Found");
@@ -70,7 +70,7 @@ public class AddGoalActivity extends AppCompatActivity {
                     goal.setCategory(2);
                     Intent editIntent = new Intent(view.getContext(), EditGoalActivity.class);
                     editIntent.putExtra("GoalItem",goal);
-                    startActivityForResult(editIntent, 2);
+                    startActivityForResult(editIntent, 0);
                 }
                 else{
                     Log.d("error","No Goal Found");
@@ -85,7 +85,7 @@ public class AddGoalActivity extends AppCompatActivity {
                     goal.setCategory(3);
                     Intent editIntent = new Intent(view.getContext(), EditGoalActivity.class);
                     editIntent.putExtra("GoalItem",goal);
-                    startActivityForResult(editIntent, 2);
+                    startActivityForResult(editIntent, 0);
                 }
                 else{
                     Log.d("error","No Goal Found");
@@ -100,7 +100,7 @@ public class AddGoalActivity extends AppCompatActivity {
                     goal.setCategory(4);
                     Intent editIntent = new Intent(view.getContext(), EditGoalActivity.class);
                     editIntent.putExtra("GoalItem",goal);
-                    startActivityForResult(editIntent, 2);
+                    startActivityForResult(editIntent, 0);
                 }
                 else{
                     Log.d("error","No Goal Found");
@@ -121,7 +121,8 @@ public class AddGoalActivity extends AppCompatActivity {
                 setResult(RESULT_OK,end);
             }
         } else if (resultCode == RESULT_CANCELED) {
-
+            Intent end = new Intent();
+            setResult(RESULT_CANCELED,end);
         }
         finish();
     }

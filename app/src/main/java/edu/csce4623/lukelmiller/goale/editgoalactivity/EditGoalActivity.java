@@ -76,6 +76,7 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
         });
         progressBar = findViewById(R.id.progress);
         tvPercentComplete = findViewById(R.id.tvPercentComplete);
+
         if(callingIntent.hasExtra("GoalItem")){
             goal = (GoalItem) callingIntent.getSerializableExtra("GoalItem");
             setExistingView();
@@ -199,10 +200,16 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
     }
     private void deleteGoal(){
         //repo.deleteGoalItem(goal);
+        int requestCode = getIntent().getExtras().getInt("requestCode");
         Intent end = new Intent();
-        end.putExtra("GoalItem", goal);
-        end.putExtra("result", 2);
-        setResult(RESULT_OK,end);
+        if(requestCode == 0){
+            setResult(RESULT_CANCELED, end);
+        }
+        else{
+            end.putExtra("GoalItem", goal);
+            end.putExtra("result", 2);
+            setResult(RESULT_OK,end);
+        }
         finish();
     }
 
