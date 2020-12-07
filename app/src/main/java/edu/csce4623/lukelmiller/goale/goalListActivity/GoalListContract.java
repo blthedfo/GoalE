@@ -18,6 +18,7 @@ public interface GoalListContract {
 
         void showAddGoalItem(GoalItem item, int requestCode);
 
+
         void showCategoryProgress(List<GoalItem> goalItemList, int requestCode);
     }
 
@@ -30,6 +31,7 @@ public interface GoalListContract {
 
 
         void addNewGoalItem();
+
 
         void showAllProgressBars();
 

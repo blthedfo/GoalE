@@ -2,6 +2,7 @@ package edu.csce4623.lukelmiller.goale.addgoalactivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -37,46 +38,72 @@ public class AddGoalActivity extends AppCompatActivity {
         btnFinancial = findViewById(R.id.btnFinancial);
         btnQuality = findViewById(R.id.btnQuality);
         btnQuantity = findViewById(R.id.btnQuantity);
+        Intent callingIntent = getIntent();
 
         //Intent EditIntent = new Intent(AddGoalActivity.this, EditGoalActivity.class);
 
         btnHealth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //goal.setCategory(1);
-                Intent EditIntent = new Intent(view.getContext(),EditGoalActivity.class);
-                //EditIntent.putExtra("Goal item",goal);
-                startActivity(EditIntent);
-
-
-
+                if(callingIntent.hasExtra("GoalItem")){
+                    goal = (GoalItem) callingIntent.getSerializableExtra("GoalItem");
+                    goal.setCategory(1);
+                    Intent editIntent = new Intent(view.getContext(), EditGoalActivity.class);
+                    editIntent.putExtra("GoalItem",goal);
+                    startActivity(editIntent);
+                }
+                else{
+                    Log.d("error","No Goal Found");
+                }
+                finish();
             }
         });
         btnFinancial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //goal.setCategory(2);
-                Intent EditIntent = new Intent(view.getContext(),EditGoalActivity.class);
-                //EditIntent.putExtra("Goal item",goal);
-                startActivity(EditIntent);
+                if(callingIntent.hasExtra("GoalItem")){
+                    goal = (GoalItem) callingIntent.getSerializableExtra("GoalItem");
+                    goal.setCategory(2);
+                    Intent editIntent = new Intent(view.getContext(), EditGoalActivity.class);
+                    editIntent.putExtra("GoalItem",goal);
+                    startActivity(editIntent);
+                }
+                else{
+                    Log.d("error","No Goal Found");
+                }
+                finish();
             }
         });
         btnQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // goal.setCategory(3);
-                Intent EditIntent = new Intent(view.getContext(),EditGoalActivity.class);
-                //EditIntent.putExtra("Goal item",goal);
-                startActivity(EditIntent);
+                if(callingIntent.hasExtra("GoalItem")){
+                    goal = (GoalItem) callingIntent.getSerializableExtra("GoalItem");
+                    goal.setCategory(3);
+                    Intent editIntent = new Intent(view.getContext(), EditGoalActivity.class);
+                    editIntent.putExtra("GoalItem",goal);
+                    startActivity(editIntent);
+                }
+                else{
+                    Log.d("error","No Goal Found");
+                }
+                finish();
             }
         });
         btnQuality.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //goal.setCategory(4);
-                Intent EditIntent = new Intent(view.getContext(),EditGoalActivity.class);
-                //EditIntent.putExtra("Goal item",goal);
-                startActivity(EditIntent);
+                if(callingIntent.hasExtra("GoalItem")){
+                    goal = (GoalItem) callingIntent.getSerializableExtra("GoalItem");
+                    goal.setCategory(4);
+                    Intent editIntent = new Intent(view.getContext(), EditGoalActivity.class);
+                    editIntent.putExtra("GoalItem",goal);
+                    startActivity(editIntent);
+                }
+                else{
+                    Log.d("error","No Goal Found");
+                }
+                finish();
             }
         });
     }
