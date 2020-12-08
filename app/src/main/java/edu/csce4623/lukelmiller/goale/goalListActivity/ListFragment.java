@@ -66,8 +66,7 @@ public class ListFragment extends Fragment implements GoalListContract.View{
 
          root.findViewById(R.id.btnAllCategories).setOnClickListener(new View.OnClickListener() {
              @Override
-             public void onClick(View v) {
-                 presenter.showAllProgressBars();
+             public void onClick(View v){
              }
          });
          return root;
@@ -90,21 +89,17 @@ public class ListFragment extends Fragment implements GoalListContract.View{
     public void showEditGoalItem(GoalItem item, int requestCode){
         Intent editIntent = new Intent(getActivity(), EditGoalActivity.class);
         editIntent.putExtra("GoalItem", item);
+        editIntent.putExtra("requestCode", requestCode);
         startActivityForResult(editIntent, requestCode);
     }
 
     public void showAddGoalItem(GoalItem item, int requestCode){
         Intent addIntent = new Intent(getActivity(), AddGoalActivity.class);
         addIntent.putExtra("GoalItem", item);
+        addIntent.putExtra("requestCode", requestCode);
         startActivityForResult(addIntent, requestCode);
     }
 
-    public void showCategoryProgress(List<GoalItem> goalItemList, int requestCode){
-        Intent categoryIntent = new Intent(getActivity(), categoryProgressView.class);
-        categoryIntent.putExtra("GoalItem", (Parcelable) goalItemList);
-        startActivityForResult(categoryIntent,requestCode);
-
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -54,7 +54,9 @@ public class AddGoalActivity extends AppCompatActivity {
                     goal = (GoalItem) callingIntent.getSerializableExtra("GoalItem");
                     goal.setCategory(1);
                     Intent editIntent = new Intent(view.getContext(), EditGoalActivity.class);
+                    editIntent.putExtra("requestCode", 0);
                     editIntent.putExtra("GoalItem",goal);
+
                     startActivityForResult(editIntent, 0);
                 }
                 else{
@@ -69,6 +71,7 @@ public class AddGoalActivity extends AppCompatActivity {
                     goal = (GoalItem) callingIntent.getSerializableExtra("GoalItem");
                     goal.setCategory(2);
                     Intent editIntent = new Intent(view.getContext(), EditGoalActivity.class);
+                    editIntent.putExtra("requestCode", 0);
                     editIntent.putExtra("GoalItem",goal);
                     startActivityForResult(editIntent, 0);
                 }
@@ -84,6 +87,7 @@ public class AddGoalActivity extends AppCompatActivity {
                     goal = (GoalItem) callingIntent.getSerializableExtra("GoalItem");
                     goal.setCategory(3);
                     Intent editIntent = new Intent(view.getContext(), EditGoalActivity.class);
+                    editIntent.putExtra("requestCode", 0);
                     editIntent.putExtra("GoalItem",goal);
                     startActivityForResult(editIntent, 0);
                 }
@@ -99,6 +103,7 @@ public class AddGoalActivity extends AppCompatActivity {
                     goal = (GoalItem) callingIntent.getSerializableExtra("GoalItem");
                     goal.setCategory(4);
                     Intent editIntent = new Intent(view.getContext(), EditGoalActivity.class);
+                    editIntent.putExtra("requestCode", 0);
                     editIntent.putExtra("GoalItem",goal);
                     startActivityForResult(editIntent, 0);
                 }

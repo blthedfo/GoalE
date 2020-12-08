@@ -39,6 +39,7 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
     Button btnDelete;
     ProgressBar progressBar;
     TextView tvPercentComplete;
+    int requestCode;
     //GoalItemRepository repo;
 
     public EditGoalActivity(){
@@ -60,6 +61,7 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
         etNotes = findViewById(R.id.etNotes);
         btnSave = findViewById(R.id.btnSave);
         Intent callingIntent = getIntent();
+        requestCode = (int) callingIntent.getSerializableExtra("requestCode");
         //repo = GoalItemRepository.getInstance(new AppExecutors(),getActivity());
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -200,7 +202,7 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
     }
     private void deleteGoal(){
         //repo.deleteGoalItem(goal);
-        int requestCode = getIntent().getExtras().getInt("requestCode");
+
         Intent end = new Intent();
         if(requestCode == 0){
             setResult(RESULT_CANCELED, end);

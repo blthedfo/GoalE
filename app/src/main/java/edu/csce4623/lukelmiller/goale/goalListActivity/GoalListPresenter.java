@@ -44,12 +44,6 @@ public class GoalListPresenter implements GoalListContract.Presenter{
         goalItemView.showAddGoalItem(goal,CREATE_GOAL_REQUEST);
     }
 
-    @Override
-    public void showAllProgressBars() {
-        List<Integer> catList ;
-
-        //goalItemView.showCategoryProgress(goalItemList,CREATE_GOAL_REQUEST);
-    }
 
     public void showExistingGoalItem(GoalItem item){
         goalItemView.showEditGoalItem(item,UPDATE_GOAL_REQUEST);

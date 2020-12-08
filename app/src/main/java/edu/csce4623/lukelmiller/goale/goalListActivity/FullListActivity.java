@@ -20,6 +20,7 @@ public class FullListActivity extends AppCompatActivity{
 
     private GoalListPresenter goalListPresenter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
