@@ -9,25 +9,25 @@
         android:id="@+id/returnFromProgress"
         android:layout_width="100dp"
         android:layout_height="0dp"
+        android:layout_marginStart="8dp"
         android:text="Back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
 
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/overallProgress"
         style="?android:attr/progressBarStyleHorizontal"
-        android:indeterminateOnly="false"
-        android:progress="2"
         android:layout_width="175dp"
         android:layout_height="175dp"
         android:layout_weight="1"
-        app:layout_constraintStart_toEndOf="@id/healthProgress"
-        app:layout_constraintTop_toTopOf="parent"
+        android:indeterminateOnly="false"
+        android:progress="2"
+        android:progressDrawable="@drawable/circle"
         app:layout_constraintBottom_toTopOf="@id/healthProgress"
         app:layout_constraintEnd_toStartOf="@+id/financialProgress"
-        android:progressDrawable="@drawable/circle"/>
+        app:layout_constraintStart_toEndOf="@id/healthProgress"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
@@ -75,16 +75,17 @@
     <ProgressBar
         android:id="@+id/financialProgress"
         style="?android:attr/progressBarStyleHorizontal"
-        android:indeterminateOnly="false"
-        android:progress="2"
         android:layout_width="175dp"
         android:layout_height="175dp"
+        android:layout_marginEnd="16dp"
         android:layout_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
-        app:layout_constraintTop_toTopOf="parent"
+        android:indeterminateOnly="false"
+        android:progress="2"
+        android:progressDrawable="@drawable/circle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:progressDrawable="@drawable/circle"/>
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
@@ -130,16 +131,17 @@
     <ProgressBar
         android:id="@+id/quantityProgress"
         style="?android:attr/progressBarStyleHorizontal"
-        android:indeterminateOnly="false"
-        android:progress="2"
         android:layout_width="175dp"
         android:layout_height="175dp"
+        android:layout_marginEnd="16dp"
         android:layout_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
-        app:layout_constraintTop_toBottomOf="@id/financialProgress"
+        android:indeterminateOnly="false"
+        android:progress="2"
+        android:progressDrawable="@drawable/circle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:progressDrawable="@drawable/circle"/>
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@id/financialProgress" />
 
 
     <TextView
@@ -153,6 +155,67 @@
         app:layout_constraintStart_toStartOf="@+id/quantityProgress"
         app:layout_constraintTop_toTopOf="@+id/quantityProgress"
         />
+
+    <TextView
+        android:id="@+id/tvOverallProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:text="Overall Progress"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/overallProgress"
+        app:layout_constraintEnd_toEndOf="@+id/overallProgress"
+        app:layout_constraintStart_toStartOf="@+id/overallProgress"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvHealthProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Health Progress"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/healthProgress"
+        app:layout_constraintEnd_toEndOf="@+id/healthProgress"
+        app:layout_constraintStart_toStartOf="@+id/healthProgress"
+        app:layout_constraintTop_toBottomOf="@+id/overallProgress" />
+
+    <TextView
+        android:id="@+id/tvFinanceProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Financial Progress"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/financialProgress"
+        app:layout_constraintEnd_toEndOf="@+id/financialProgress"
+        app:layout_constraintStart_toStartOf="@+id/financialProgress"
+        app:layout_constraintTop_toBottomOf="@+id/overallProgress" />
+
+    <TextView
+        android:id="@+id/tvQualityProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quality Progress"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/qualityProgress"
+        app:layout_constraintEnd_toEndOf="@+id/qualityProgress"
+        app:layout_constraintStart_toStartOf="@+id/qualityProgress"
+        app:layout_constraintTop_toBottomOf="@+id/healthProgress" />
+
+    <TextView
+        android:id="@+id/tvQuantityProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quantity Progress"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/quantityProgress"
+        app:layout_constraintEnd_toEndOf="@+id/quantityProgress"
+        app:layout_constraintStart_toStartOf="@+id/quantityProgress"
+        app:layout_constraintTop_toBottomOf="@+id/financialProgress" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

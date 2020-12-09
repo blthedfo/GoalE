@@ -39,10 +39,6 @@ public class categoryProgressView extends AppCompatActivity {
     private int avgF;
     private int avgQuan;
     private int avgQual;
-    private boolean healthFlag;
-    private boolean finFlag;
-    private boolean quantFlag;
-    private boolean qualFlag;
 
 
 
@@ -56,10 +52,7 @@ public class categoryProgressView extends AppCompatActivity {
         setContentView(R.layout.category_progress_layout);
 
 
-        healthFlag = false;
-        finFlag = false;
-        quantFlag = false;
-        qualFlag = false;
+
         healthItems =  new ArrayList<>();
         financeItems =  new ArrayList<>();
         quantityItems =  new ArrayList<>();
@@ -149,28 +142,100 @@ public class categoryProgressView extends AppCompatActivity {
     private void calOverallProgress() {
         int totalProgress = 0;
         int avgProgress = 0;
-        int denom = 0;
-        if(qualFlag == true){
-            denom++;
-            totalProgress += avgQual;
+        if(healthItems.size() != 0 && financeItems.size() != 0 && qualityItems.size() != 0 && quantityItems.size() != 0){
+            Integer intHealth = Integer.parseInt(tvHealth.toString());
+            Integer intFinance = Integer.parseInt(tvFinance.toString());
+            Integer intQuality = Integer.parseInt(tvQuality.toString());
+            Integer intQuantity = Integer.parseInt(tvQuantity.toString());
+            totalProgress = intHealth + intFinance + intQuality + intQuantity;
+            avgProgress = totalProgress/4;
+
         }
-        if(quantFlag == true){
-            denom++;
-            totalProgress += avgQuan;
-        }
-        if(healthFlag == true){
-            denom++;
-            totalProgress += avgH;
-        }
-        if(finFlag == true){
-            denom++;
-            totalProgress += avgF;
-        }
-        if (denom==0){
+        else if(healthItems.size() == 0 && financeItems.size() == 0 && qualityItems.size() == 0 && quantityItems.size() == 0){
             tvOverall.setText("--%");
+
         }
         else{
-            avgProgress = totalProgress/denom;
+
+            if(healthItems.isEmpty() || financeItems.isEmpty() || quantityItems.isEmpty() || qualityItems.isEmpty() ){
+                if(healthItems.isEmpty()){
+                    if(financeItems.isEmpty() || quantityItems.isEmpty() || qualityItems.isEmpty()){
+
+                        if(financeItems.isEmpty()){
+                            if(quantityItems.isEmpty()|| qualityItems.isEmpty()){
+
+                                if(qualityItems.isEmpty()){
+                                    avgProgress = avgQuan;
+                                }
+                                if(quantityItems.isEmpty()){
+                                    avgProgress = avgQual;
+                                }
+                            }
+                            else{
+                                totalProgress = avgQual + avgQuan;
+                                avgProgress = totalProgress/2;
+                            }
+                        }
+                        else if(quantityItems.isEmpty()){
+                            if(qualityItems.isEmpty()){
+                                avgProgress = avgF;
+                            }
+                            else{
+                                totalProgress =  avgF + avgQual;
+                                avgProgress = totalProgress/2;
+                            }
+                        }
+                        else{
+                            if(quantityItems.isEmpty()){
+                                avgProgress = avgF;
+                            }
+                            else{
+                                totalProgress =  avgF+ avgQuan;
+                                avgProgress = totalProgress/2;
+                            }
+                        }
+                    }
+                    else{
+                        totalProgress = avgF + avgQual + avgQuan;
+                        avgProgress = totalProgress/3;
+                    }
+                }
+                else if(financeItems.isEmpty()){
+
+                    if(quantityItems.isEmpty()|| qualityItems.isEmpty()){
+
+                        if(qualityItems.isEmpty()){
+                            avgProgress = avgQuan;
+                        }
+                        if(quantityItems.isEmpty()){
+                            avgProgress = avgQual;
+                        }
+                    }
+                    else{
+                        totalProgress = avgH + avgQuan + avgQual;
+                        avgProgress = totalProgress/3;
+                    }
+                }
+                else{
+
+                    if(quantityItems.isEmpty()){
+                        if(qualityItems.isEmpty()){
+                            totalProgress = avgF + avgH;
+                            avgProgress = totalProgress/2;
+                        }
+                        else{
+                            totalProgress =  avgF + avgQual + avgH;
+                            avgProgress = totalProgress/3;
+                        }
+                    }
+                    else{
+                        if(qualityItems.isEmpty()){
+                            totalProgress = avgF + avgH + avgQuan;
+                            avgProgress = totalProgress/3;
+                        }
+                    }
+                }
+            }
         }
 
         tvOverall.setText(Integer.toString(avgProgress) + "%");
@@ -178,7 +243,6 @@ public class categoryProgressView extends AppCompatActivity {
 
 
     private int calcQuantityProgress() {
-        quantFlag = true;
         int totalProgress = 0;
         int avgProgress = 0;
 
@@ -211,7 +275,6 @@ public class categoryProgressView extends AppCompatActivity {
     }
 
     private int calcQualityProgress() {
-        qualFlag = true;
         int totalProgress = 0;
         int avgProgress = 0;
         for (int i = 0; i < qualityItems.size(); i++) {
@@ -222,7 +285,6 @@ public class categoryProgressView extends AppCompatActivity {
     }
 
     private int calcFinanceProgress() {
-        finFlag = true;
         int totalProgress = 0;
         int avgProgress = 0;
         for (int i = 0; i < financeItems.size(); i++) {
@@ -233,7 +295,6 @@ public class categoryProgressView extends AppCompatActivity {
     }
 
     private int calcHealthProgress() {
-        healthFlag = true;
         int totalProgress = 0;
         int avgProgress = 0;
 
