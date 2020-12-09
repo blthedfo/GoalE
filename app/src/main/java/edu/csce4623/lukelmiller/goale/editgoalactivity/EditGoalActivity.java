@@ -184,7 +184,7 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
             end.putExtra("GoalItem", goal);
             setResult(RESULT_CANCELED,end);
             finish();
-        } else if(Float.parseFloat(etStart.getText().toString()) == 0 && Float.parseFloat(etCurrent.getText().toString()) == 0){
+        } else if(Float.parseFloat(etStart.getText().toString()) == 0 && Float.parseFloat(etCurrent.getText().toString()) == 0 && requestCode==0){
             if (Float.parseFloat(etStart.getText().toString()) == 0){
                 goal.setStart(Float.parseFloat(etCurrent.getText().toString()));
             }
