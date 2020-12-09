@@ -25,10 +25,10 @@ public class categoryProgressView extends AppCompatActivity {
     private List<GoalItem> financeItems;
     private List<GoalItem> quantityItems;
     private List<GoalItem> qualityItems;
-    private Integer healthProgress;
-    private Integer financeProgress;
-    private Integer qualityProgress;
-    private Integer quantityProgress;
+    private int healthProgress;
+    private int financeProgress;
+    private int qualityProgress;
+    private int quantityProgress;
     private TextView tvHealth;
     private TextView tvFinance;
     private TextView tvQuality;
@@ -101,11 +101,18 @@ public class categoryProgressView extends AppCompatActivity {
             }
         }
 
-        calcHealthProgress();
-        calcFinanceProgress();
-        calcQualityProgress();
-        calcQuantityProgress();
-
+        if(healthItems.size()!=0){
+            calcHealthProgress();
+        }
+        if (financeItems.size()!=0){
+            calcFinanceProgress();
+        }
+        if(qualityItems.size()!=0){
+            calcQualityProgress();
+        }
+        if(quantityItems.size()!=0){
+            calcQuantityProgress();
+        }
     }
 
 
