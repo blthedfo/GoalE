@@ -6,6 +6,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,21 +18,21 @@ import util.AppExecutors;
 
 public class categoryProgressView extends AppCompatActivity {
 
-   List<GoalItem> goalItemList;
-    private static final int CREATE_GOAL_REQUEST = 0;
+    private List<GoalItem> goalItemList;
+
     private GoalItemRepository repoDB;
-    List<GoalItem> healthItems = Collections.emptyList();
-    List<GoalItem> financeItems = Collections.emptyList();
-    List<GoalItem> quantityItems = Collections.emptyList();
-    List<GoalItem> qualityItems = Collections.emptyList();
-    Integer healthProgress = 0;
-    Integer financeProgress = 0;
-    Integer qualityProgress = 0;
-    Integer quantityProgress = 0;
-    TextView tvHealth = findViewById(R.id.healthText);
-    TextView tvFinance = findViewById(R.id.financialText);
-    TextView tvQuality = findViewById(R.id.qualityText);
-    TextView tvQuantity = findViewById(R.id.quantityText);
+    private List<GoalItem> healthItems;
+    private List<GoalItem> financeItems;
+    private List<GoalItem> quantityItems;
+    private List<GoalItem> qualityItems;
+    private Integer healthProgress;
+    private Integer financeProgress;
+    private Integer qualityProgress;
+    private Integer quantityProgress;
+    private TextView tvHealth;
+    private TextView tvFinance;
+    private TextView tvQuality;
+    private TextView tvQuantity;
 
 
 
@@ -40,9 +41,25 @@ public class categoryProgressView extends AppCompatActivity {
 //    }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.category_progress_layout);
+
+
+
+        healthItems =  new ArrayList<>();
+        financeItems =  new ArrayList<>();
+        quantityItems =  new ArrayList<>();
+        qualityItems =  new ArrayList<>();
+        healthProgress = 0;
+        financeProgress = 0;
+        qualityProgress = 0;
+        quantityProgress = 0;
+        tvHealth = findViewById(R.id.healthText);
+        tvFinance = findViewById(R.id.financialText);
+        tvQuality = findViewById(R.id.qualityText);
+        tvQuantity = findViewById(R.id.quantityText);
+
 
         repoDB = GoalItemRepository.getInstance(new AppExecutors(),this);
         repoDB.getGoalItems(new GoalListDataSource.LoadGoalItemsCallback(){
@@ -91,28 +108,32 @@ public class categoryProgressView extends AppCompatActivity {
 
     }
 
-    private void calcQuantityProgress() {
-        Integer totalProgress = 0;
-        Integer avgProgress = 0;
-        for(int i = 0; i < healthItems.size(); i++){
-            healthProgress = 0;
-            if(healthItems.get(i).getCurrent()< healthItems.get(i).getEnd() && healthItems.get(i).getEnd()!=0){
-                healthProgress += (int) Math.ceil(healthItems.get(i).getCurrent()/healthItems.get(i).getEnd()*100);
-            }else if(healthItems.get(i).getCurrent()< healthItems.get(i).getEnd() && healthItems.get(i).getEnd()==0){
-                healthProgress += (int) Math.ceil(healthItems.get(i).getCurrent()/0.00000001*100);
-            }else if(healthItems.get(i).getEnd() < healthItems.get(i).getCurrent() && healthItems.get(i).getCurrent()!=0){
-                healthProgress += (int) Math.ceil(healthItems.get(i).getEnd()/healthItems.get(i).getCurrent()*100);
-            }else if(healthItems.get(i).getEnd() < healthItems.get(i).getCurrent() && healthItems.get(i).getCurrent()==0){
-                healthProgress += (int) Math.ceil(healthItems.get(i).getEnd()/0.00000001*100);
-            }else{
-                healthProgress = 0;
-            }
-            totalProgress += healthProgress;
 
+
+    private void calcQuantityProgress() {
+        int totalProgress = 0;
+        int avgProgress = 0;
+        for(int i = 0; i < healthItems.size(); i++){
+            totalProgress += calcProgress(healthItems.get(i));
         }
         avgProgress = totalProgress/healthItems.size();
-        tvHealth.setText(avgProgress.toString() + "%");
+        tvHealth.setText(Integer.toString(avgProgress) + "%");
+    }
 
+    private int calcProgress(GoalItem item){
+        int progress = 0;
+        if(item.getCurrent()< item.getEnd() && item.getEnd()!=0){
+            progress += (int) Math.ceil(item.getCurrent()/item.getEnd()*100);
+        }else if(item.getCurrent()< item.getEnd() && item.getEnd()==0){
+            progress += (int) Math.ceil(item.getCurrent()/0.00000001*100);
+        }else if(item.getEnd() < item.getCurrent() && item.getCurrent()!=0){
+            progress += (int) Math.ceil(item.getEnd()/item.getCurrent()*100);
+        }else if(item.getEnd() < item.getCurrent() && item.getCurrent()==0){
+            progress += (int) Math.ceil(item.getEnd()/0.00000001*100);
+        }else{
+            progress = 0;
+        }
+        return progress;
     }
 
     private void calcQualityProgress() {
