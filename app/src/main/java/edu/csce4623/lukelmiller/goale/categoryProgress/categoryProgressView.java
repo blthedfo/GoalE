@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -45,8 +46,11 @@ public class categoryProgressView extends AppCompatActivity {
     private boolean finFlag;
     private boolean quantFlag;
     private boolean qualFlag;
-
-
+    ProgressBar healthProgressBar;
+    ProgressBar financeProgressBar;
+    ProgressBar qualityProgressBar;
+    ProgressBar quantityProgressBar;
+    ProgressBar overallProgressBar;
 
 
 //    //public categoryProgressView() {
@@ -78,6 +82,11 @@ public class categoryProgressView extends AppCompatActivity {
         tvQuantity = findViewById(R.id.quantityText);
         tvOverall = findViewById(R.id.overallText);
         Button back = findViewById(R.id.returnFromProgress);
+        healthProgressBar = (ProgressBar) findViewById(R.id.healthProgress);
+        financeProgressBar = (ProgressBar) findViewById(R.id.financialProgress);
+        qualityProgressBar = (ProgressBar) findViewById(R.id.qualityProgress);
+        quantityProgressBar = (ProgressBar) findViewById(R.id.quantityProgress);
+        overallProgressBar = (ProgressBar) findViewById(R.id.overallProgress);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,30 +139,40 @@ public class categoryProgressView extends AppCompatActivity {
         if(healthItems.size()!=0){
             avgH = calcHealthProgress();
             tvHealth.setText(avgH + "%");
+            healthProgressBar.setProgress(avgH);
+
         }
         else {
             tvHealth.setText("--%");
+            healthProgressBar.setProgress(0);
         }
         if (financeItems.size()!=0){
            avgF = calcFinanceProgress();
            tvFinance.setText(avgF + "%");
+           financeProgressBar.setProgress(avgF);
         }
         else {
             tvFinance.setText("--%");
+            financeProgressBar.setProgress(0);
         }
         if(qualityItems.size()!=0){
             avgQual = calcQualityProgress();
             tvQuality.setText(avgQual + "%");
+            qualityProgressBar.setProgress(avgQual);
         }
         else {
             tvQuality.setText("--%");
+            qualityProgressBar.setProgress(0);
         }
         if(quantityItems.size()!=0){
             avgQuan = calcQuantityProgress();
             tvQuantity.setText(avgQuan + "%");
+            quantityProgressBar.setProgress(avgQuan);
         }
         else {
             tvQuantity.setText("--%");
+            quantityProgressBar.setProgress(0);
+
         }
         calOverallProgress();
     }
@@ -180,11 +199,13 @@ public class categoryProgressView extends AppCompatActivity {
         }
         if (denom==0){
             tvOverall.setText("--%");
+            quantityProgressBar.setProgress(0);
         }
         else{
             avgProgress = totalProgress/denom;
         }
         tvOverall.setText(Integer.toString(avgProgress) + "%");
+        overallProgressBar.setProgress(avgProgress);
     }
 
 

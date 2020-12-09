@@ -16,7 +16,7 @@
             android:shape="ring"
             android:thicknessRatio="16"
             android:useLevel="true">
-            <solid android:color="#FF03DAC5" />
+            <solid android:color="#FF6200EE" />
 
         </shape>
 
