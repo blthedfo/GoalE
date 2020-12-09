@@ -1,5 +1,6 @@
 package edu.csce4623.lukelmiller.goale.categoryProgress;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -33,6 +34,11 @@ public class categoryProgressView extends AppCompatActivity {
     private TextView tvFinance;
     private TextView tvQuality;
     private TextView tvQuantity;
+    private TextView tvOverall;
+    private int avgH;
+    private int avgF;
+    private int avgQuan;
+    private int avgQual;
 
 
 
@@ -59,6 +65,7 @@ public class categoryProgressView extends AppCompatActivity {
         tvFinance = findViewById(R.id.financialText);
         tvQuality = findViewById(R.id.qualityText);
         tvQuantity = findViewById(R.id.quantityText);
+        tvOverall = findViewById(R.id.overallText);
 
 
         repoDB = GoalItemRepository.getInstance(new AppExecutors(),this);
@@ -102,34 +109,140 @@ public class categoryProgressView extends AppCompatActivity {
         }
 
         if(healthItems.size()!=0){
-            calcHealthProgress();
+            avgH = calcHealthProgress();
+            tvHealth.setText(avgH + "%");
         }
         else {
-            tvHealth.setText("0%");
+            tvHealth.setText("--%");
         }
         if (financeItems.size()!=0){
-            calcFinanceProgress();
+           avgF = calcFinanceProgress();
+           tvFinance.setText(avgF + "%");
         }
         else {
-            tvFinance.setText("0%");
+            tvFinance.setText("--%");
         }
         if(qualityItems.size()!=0){
-            calcQualityProgress();
+            avgQual = calcQualityProgress();
+            tvQuality.setText(avgQual + "%");
         }
         else {
-            tvQuality.setText("0%");
+            tvQuality.setText("--%");
         }
         if(quantityItems.size()!=0){
-            calcQuantityProgress();
+            avgQuan = calcQuantityProgress();
+            tvQuantity.setText(avgQuan + "%");
         }
         else {
-            tvQuantity.setText("0%");
+            tvQuantity.setText("--%");
         }
+        calOverallProgress();
+    }
+
+    private void calOverallProgress() {
+        int totalProgress = 0;
+        int avgProgress = 0;
+        if(healthItems.size() != 0 && financeItems.size() != 0 && qualityItems.size() != 0 && quantityItems.size() != 0){
+            Integer intHealth = Integer.parseInt(tvHealth.toString());
+            Integer intFinance = Integer.parseInt(tvFinance.toString());
+            Integer intQuality = Integer.parseInt(tvQuality.toString());
+            Integer intQuantity = Integer.parseInt(tvQuantity.toString());
+            totalProgress = intHealth + intFinance + intQuality + intQuantity;
+            avgProgress = totalProgress/4;
+
+        }
+        else if(healthItems.size() == 0 && financeItems.size() == 0 && qualityItems.size() == 0 && quantityItems.size() == 0){
+            tvOverall.setText("--%");
+
+        }
+        else{
+
+            if(healthItems.isEmpty() || financeItems.isEmpty() || quantityItems.isEmpty() || qualityItems.isEmpty() ){
+                if(healthItems.isEmpty()){
+                    if(financeItems.isEmpty() || quantityItems.isEmpty() || qualityItems.isEmpty()){
+
+                        if(financeItems.isEmpty()){
+                            if(quantityItems.isEmpty()|| qualityItems.isEmpty()){
+
+                                if(qualityItems.isEmpty()){
+                                    avgProgress = avgQuan;
+                                }
+                                if(quantityItems.isEmpty()){
+                                    avgProgress = avgQual;
+                                }
+                            }
+                            else{
+                                totalProgress = avgQual + avgQuan;
+                                avgProgress = totalProgress/2;
+                            }
+                        }
+                        else if(quantityItems.isEmpty()){
+                            if(qualityItems.isEmpty()){
+                                avgProgress = avgF;
+                            }
+                            else{
+                                totalProgress =  avgF + avgQual;
+                                avgProgress = totalProgress/2;
+                            }
+                        }
+                        else{
+                            if(quantityItems.isEmpty()){
+                                avgProgress = avgF;
+                            }
+                            else{
+                                totalProgress =  avgF+ avgQuan;
+                                avgProgress = totalProgress/2;
+                            }
+                        }
+                    }
+                    else{
+                        totalProgress = avgF + avgQual + avgQuan;
+                        avgProgress = totalProgress/3;
+                    }
+                }
+                else if(financeItems.isEmpty()){
+
+                    if(quantityItems.isEmpty()|| qualityItems.isEmpty()){
+
+                        if(qualityItems.isEmpty()){
+                            avgProgress = avgQuan;
+                        }
+                        if(quantityItems.isEmpty()){
+                            avgProgress = avgQual;
+                        }
+                    }
+                    else{
+                        totalProgress = avgH + avgQuan + avgQual;
+                        avgProgress = totalProgress/3;
+                    }
+                }
+                else{
+
+                    if(quantityItems.isEmpty()){
+                        if(qualityItems.isEmpty()){
+                            totalProgress = avgF + avgH;
+                            avgProgress = totalProgress/2;
+                        }
+                        else{
+                            totalProgress =  avgF + avgQual + avgH;
+                            avgProgress = totalProgress/3;
+                        }
+                    }
+                    else{
+                        if(qualityItems.isEmpty()){
+                            totalProgress = avgF + avgH + avgQuan;
+                            avgProgress = totalProgress/3;
+                        }
+                    }
+                }
+            }
+        }
+
+        tvOverall.setText(Integer.toString(avgProgress) + "%");
     }
 
 
-
-    private void calcQuantityProgress() {
+    private int calcQuantityProgress() {
         int totalProgress = 0;
         int avgProgress = 0;
 
@@ -137,7 +250,7 @@ public class categoryProgressView extends AppCompatActivity {
             totalProgress += calcProgress(quantityItems.get(i));
         }
         avgProgress = totalProgress / quantityItems.size();
-        tvQuantity.setText(Integer.toString(avgProgress) + "%");
+        return avgProgress;
     }
 
     private int calcProgress(GoalItem goalItem){
@@ -161,27 +274,27 @@ public class categoryProgressView extends AppCompatActivity {
         return progress;
     }
 
-    private void calcQualityProgress() {
+    private int calcQualityProgress() {
         int totalProgress = 0;
         int avgProgress = 0;
         for (int i = 0; i < qualityItems.size(); i++) {
             totalProgress += calcProgress(qualityItems.get(i));
         }
         avgProgress = totalProgress / qualityItems.size();
-        tvQuality.setText(Integer.toString(avgProgress) + "%");
+        return avgProgress;
     }
 
-    private void calcFinanceProgress() {
+    private int calcFinanceProgress() {
         int totalProgress = 0;
         int avgProgress = 0;
         for (int i = 0; i < financeItems.size(); i++) {
             totalProgress += calcProgress(financeItems.get(i));
         }
         avgProgress = totalProgress / financeItems.size();
-        tvFinance.setText(Integer.toString(avgProgress) + "%");
+        return avgProgress;
     }
 
-    private void calcHealthProgress() {
+    private int calcHealthProgress() {
         int totalProgress = 0;
         int avgProgress = 0;
 
@@ -189,7 +302,7 @@ public class categoryProgressView extends AppCompatActivity {
             totalProgress += calcProgress(healthItems.get(i));
         }
         avgProgress = totalProgress / healthItems.size();
-        tvHealth.setText(Integer.toString(avgProgress) + "%");
+        return avgProgress;
     }
 
 
