@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.List;
@@ -169,16 +170,29 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
         goal.setTitle(etTitle.getText().toString());
         goal.setNote(etNotes.getText().toString());
         //goal.setCategory(goal.getCategory());
-        if((etStart.getText() == null && etCurrent.getText() == null) || etEnd.getText() == null){
+        if(etStart.getText().toString().isEmpty() || etCurrent.getText().toString().isEmpty() || etEnd.getText().toString().isEmpty()) {
             //Alert Saying Cannot Save Goal Here
-//            Intent end = new Intent(getActivity(), FullListActivity.class);
-//            startActivity(end);
+            Toast.makeText(EditGoalActivity.this, "Goal Not Saved: Input Missing", Toast.LENGTH_LONG).show();
             Intent end = new Intent();
             end.putExtra("GoalItem", goal);
             setResult(RESULT_CANCELED,end);
             finish();
-
-        }else if(etStart.getText() == null || etCurrent.getText() == null){
+        }else if(Float.parseFloat(etStart.getText().toString()) == 0 && Float.parseFloat(etCurrent.getText().toString()) == 0 && Float.parseFloat(etEnd.getText().toString()) == 0){
+            //Alert Saying Cannot Save Goal Here
+            Toast.makeText(EditGoalActivity.this, "Goal Not Saved: All Input Set To 0", Toast.LENGTH_LONG).show();
+            Intent end = new Intent();
+            end.putExtra("GoalItem", goal);
+            setResult(RESULT_CANCELED,end);
+            finish();
+        } else if(Float.parseFloat(etStart.getText().toString()) == 0 && Float.parseFloat(etCurrent.getText().toString()) == 0){
+            if (Float.parseFloat(etStart.getText().toString()) == 0){
+                goal.setStart(Float.parseFloat(etCurrent.getText().toString()));
+            }
+            else{
+                goal.setCurrent(Float.parseFloat(etStart.getText().toString()));
+            }
+        }
+        else if(etStart.getText() == null || etCurrent.getText() == null){
             if (etStart.getText()==null){
                 goal.setStart(Float.parseFloat(etCurrent.getText().toString()));
             }
@@ -205,6 +219,7 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
 
         Intent end = new Intent();
         if(requestCode == 0){
+            Toast.makeText(EditGoalActivity.this, "Goal Not Created", Toast.LENGTH_SHORT).show();
             setResult(RESULT_CANCELED, end);
         }
         else{

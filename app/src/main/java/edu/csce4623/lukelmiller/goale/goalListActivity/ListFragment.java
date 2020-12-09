@@ -89,12 +89,14 @@ public class ListFragment extends Fragment implements GoalListContract.View{
 
     public void showEditGoalItem(GoalItem item, int requestCode){
         Intent editIntent = new Intent(getActivity(), EditGoalActivity.class);
+        editIntent.putExtra("requestCode", requestCode);
         editIntent.putExtra("GoalItem", item);
         startActivityForResult(editIntent, requestCode);
     }
 
     public void showAddGoalItem(GoalItem item, int requestCode){
         Intent addIntent = new Intent(getActivity(), AddGoalActivity.class);
+        addIntent.putExtra("requestCode", requestCode);
         addIntent.putExtra("GoalItem", item);
         startActivityForResult(addIntent, requestCode);
     }
