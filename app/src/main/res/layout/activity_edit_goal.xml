@@ -7,13 +7,12 @@
     tools:context=".editgoalactivity.EditGoalActivity">
 
 
-
     <EditText
         android:id="@+id/etTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:editable="true"
         android:text="@string/title"
         android:textSize="36sp"
@@ -89,7 +88,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="76dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
