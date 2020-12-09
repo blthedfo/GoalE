@@ -27,7 +27,7 @@
         android:id="@+id/positions"
         android:layout_width="193dp"
         android:layout_height="315dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etTitle">
@@ -66,17 +66,17 @@
         android:layout_width="wrap_content"
         android:layout_height="53dp"
         android:layout_marginTop="7dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/etNotes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/positions"
-        app:layout_constraintVertical_bias="0.625" />
+        app:layout_constraintVertical_bias="0.55" />
 
     <EditText
         android:id="@+id/etNotes"
-        android:layout_width="383dp"
-        android:layout_height="111dp"
+        android:layout_width="381dp"
+        android:layout_height="94dp"
         android:layout_marginStart="10dp"
         android:inputType="textAutoCorrect"
         android:text="@string/notes"
@@ -125,11 +125,17 @@
         <ProgressBar
             android:id="@+id/progress"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="178dp"
-            android:layout_height="50dp"
+            android:layout_width="220dp"
+            android:layout_height="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight=".9"
+            android:indeterminate="false"
 
-            />
+            android:maxHeight="20dip"
+            android:minHeight="20dip"
+            android:progressDrawable="@drawable/purpleprogress" />
 
         <TextView
             android:id="@+id/tvPercentComplete"
