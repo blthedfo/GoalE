@@ -181,7 +181,9 @@ public class ListFragment extends Fragment implements GoalListContract.View{
             ProgressBar progressBar = (ProgressBar) rowView.findViewById(R.id.etItemProgress);
             TextView progressTV = (TextView) rowView.findViewById(R.id.etProgressText);
             int progress = 0;
-            if(goalItem.getCurrent()< goalItem.getEnd() && goalItem.getEnd()!=0){
+            if(goalItem.getCurrent() == goalItem.getEnd() && goalItem.getEnd()!=0){
+                progress = 100;
+            }else if(goalItem.getCurrent()< goalItem.getEnd() && goalItem.getEnd()!=0){
                 progress = (int) Math.ceil(goalItem.getCurrent()/goalItem.getEnd()*100);
             }else if(goalItem.getCurrent()< goalItem.getEnd() && goalItem.getEnd()==0){
                 progress = (int) Math.ceil(goalItem.getCurrent()/0.00000001*100);

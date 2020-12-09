@@ -149,7 +149,10 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
         etNotes.setText(goal.getNote());
 
         int progress = 0;
-        if(goal.getCurrent()< goal.getEnd() && goal.getEnd()!=0){
+
+        if(goal.getCurrent() == goal.getEnd() && goal.getEnd()!=0){
+            progress = 100;
+        }else if(goal.getCurrent()< goal.getEnd() && goal.getEnd()!=0){
             progress = (int) Math.ceil(goal.getCurrent()/goal.getEnd()*100);
         }else if(goal.getCurrent()< goal.getEnd() && goal.getEnd()==0){
             progress = (int) Math.ceil(goal.getCurrent()/0.00000001*100);

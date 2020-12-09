@@ -120,18 +120,23 @@ public class categoryProgressView extends AppCompatActivity {
         tvHealth.setText(Integer.toString(avgProgress) + "%");
     }
 
-    private int calcProgress(GoalItem item){
+    private int calcProgress(GoalItem goalItem){
         int progress = 0;
-        if(item.getCurrent()< item.getEnd() && item.getEnd()!=0){
-            progress += (int) Math.ceil(item.getCurrent()/item.getEnd()*100);
-        }else if(item.getCurrent()< item.getEnd() && item.getEnd()==0){
-            progress += (int) Math.ceil(item.getCurrent()/0.00000001*100);
-        }else if(item.getEnd() < item.getCurrent() && item.getCurrent()!=0){
-            progress += (int) Math.ceil(item.getEnd()/item.getCurrent()*100);
-        }else if(item.getEnd() < item.getCurrent() && item.getCurrent()==0){
-            progress += (int) Math.ceil(item.getEnd()/0.00000001*100);
+        if(goalItem.getCurrent() == goalItem.getEnd() && goalItem.getEnd()!=0){
+            progress = 100;
+        }else if(goalItem.getCurrent()< goalItem.getEnd() && goalItem.getEnd()!=0){
+            progress = (int) Math.ceil(goalItem.getCurrent()/goalItem.getEnd()*100);
+        }else if(goalItem.getCurrent()< goalItem.getEnd() && goalItem.getEnd()==0){
+            progress = (int) Math.ceil(goalItem.getCurrent()/0.00000001*100);
+        }else if(goalItem.getEnd() < goalItem.getCurrent() && goalItem.getCurrent()!=0){
+            progress = (int) Math.ceil(goalItem.getEnd()/goalItem.getCurrent()*100);
+        }else if(goalItem.getEnd() < goalItem.getCurrent() && goalItem.getCurrent()==0){
+            progress = (int) Math.ceil(goalItem.getEnd()/0.00000001*100);
         }else{
             progress = 0;
+        }
+        if(progress>=100){
+            progress = 100;
         }
         return progress;
     }
