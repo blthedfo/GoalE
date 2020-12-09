@@ -195,7 +195,6 @@ public class ListFragment extends Fragment implements GoalListContract.View{
                 progress = 0;
             }
 
-
             if(progress>=100){
                 progress = 100;
             }

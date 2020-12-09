@@ -104,14 +104,26 @@ public class categoryProgressView extends AppCompatActivity {
         if(healthItems.size()!=0){
             calcHealthProgress();
         }
+        else {
+            tvHealth.setText("0%");
+        }
         if (financeItems.size()!=0){
             calcFinanceProgress();
+        }
+        else {
+            tvFinance.setText("0%");
         }
         if(qualityItems.size()!=0){
             calcQualityProgress();
         }
+        else {
+            tvQuality.setText("0%");
+        }
         if(quantityItems.size()!=0){
             calcQuantityProgress();
+        }
+        else {
+            tvQuantity.setText("0%");
         }
     }
 
@@ -120,11 +132,12 @@ public class categoryProgressView extends AppCompatActivity {
     private void calcQuantityProgress() {
         int totalProgress = 0;
         int avgProgress = 0;
-        for(int i = 0; i < healthItems.size(); i++){
-            totalProgress += calcProgress(healthItems.get(i));
+
+        for (int i = 0; i < quantityItems.size(); i++) {
+            totalProgress += calcProgress(quantityItems.get(i));
         }
-        avgProgress = totalProgress/healthItems.size();
-        tvHealth.setText(Integer.toString(avgProgress) + "%");
+        avgProgress = totalProgress / quantityItems.size();
+        tvQuantity.setText(Integer.toString(avgProgress) + "%");
     }
 
     private int calcProgress(GoalItem goalItem){
@@ -149,14 +162,34 @@ public class categoryProgressView extends AppCompatActivity {
     }
 
     private void calcQualityProgress() {
+        int totalProgress = 0;
+        int avgProgress = 0;
+        for (int i = 0; i < qualityItems.size(); i++) {
+            totalProgress += calcProgress(qualityItems.get(i));
+        }
+        avgProgress = totalProgress / qualityItems.size();
+        tvQuality.setText(Integer.toString(avgProgress) + "%");
     }
 
     private void calcFinanceProgress() {
+        int totalProgress = 0;
+        int avgProgress = 0;
+        for (int i = 0; i < financeItems.size(); i++) {
+            totalProgress += calcProgress(financeItems.get(i));
+        }
+        avgProgress = totalProgress / financeItems.size();
+        tvFinance.setText(Integer.toString(avgProgress) + "%");
     }
 
     private void calcHealthProgress() {
+        int totalProgress = 0;
+        int avgProgress = 0;
 
-
+        for (int i = 0; i < healthItems.size(); i++) {
+            totalProgress += calcProgress(healthItems.get(i));
+        }
+        avgProgress = totalProgress / healthItems.size();
+        tvHealth.setText(Integer.toString(avgProgress) + "%");
     }
 
 
