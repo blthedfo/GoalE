@@ -186,13 +186,11 @@ public class categoryProgressView extends AppCompatActivity {
                             }
                         }
                         else{
-                            if(quantityItems.isEmpty()){
-                                avgProgress = avgF;
-                            }
-                            else{
-                                totalProgress =  avgF+ avgQuan;
+                            if(qualityItems.isEmpty()){
+                                totalProgress = avgF +avgQuan;
                                 avgProgress = totalProgress/2;
                             }
+
                         }
                     }
                     else{
