@@ -184,22 +184,17 @@ public class EditGoalActivity extends AppCompatActivity implements AdapterView.O
             end.putExtra("GoalItem", goal);
             setResult(RESULT_CANCELED,end);
             finish();
-        } else if(Float.parseFloat(etStart.getText().toString()) == 0 && Float.parseFloat(etCurrent.getText().toString()) == 0 && requestCode==0){
+        } else if((Float.parseFloat(etStart.getText().toString()) == 0 || Float.parseFloat(etCurrent.getText().toString()) == 0) && requestCode==0){
             if (Float.parseFloat(etStart.getText().toString()) == 0){
                 goal.setStart(Float.parseFloat(etCurrent.getText().toString()));
+                goal.setCurrent(Float.parseFloat(etCurrent.getText().toString()));
             }
             else{
+                goal.setStart(Float.parseFloat(etStart.getText().toString()));
                 goal.setCurrent(Float.parseFloat(etStart.getText().toString()));
             }
-        }
-        else if(etStart.getText() == null || etCurrent.getText() == null){
-            if (etStart.getText()==null){
-                goal.setStart(Float.parseFloat(etCurrent.getText().toString()));
-            }
-            else{
-                goal.setCurrent(Float.parseFloat(etStart.getText().toString()));
-            }
-        }else{
+            goal.setEnd(Float.parseFloat(etEnd.getText().toString()));
+        } else{
 
             goal.setStart(Float.parseFloat(etStart.getText().toString()));
             goal.setCurrent(Float.parseFloat(etCurrent.getText().toString()));
