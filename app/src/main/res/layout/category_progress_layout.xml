@@ -11,6 +11,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:text="Back"
+        app:cornerRadius="50dp"
         app:layout_constraintStart_toStartOf="parent"
 
         app:layout_constraintTop_toTopOf="parent" />
@@ -166,8 +167,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/overallProgress"
         app:layout_constraintEnd_toEndOf="@+id/overallProgress"
+        app:layout_constraintHorizontal_bias="0.404"
         app:layout_constraintStart_toStartOf="@+id/overallProgress"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/tvHealthProgress"
@@ -178,8 +181,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/healthProgress"
         app:layout_constraintEnd_toEndOf="@+id/healthProgress"
+        app:layout_constraintHorizontal_bias="0.586"
         app:layout_constraintStart_toStartOf="@+id/healthProgress"
-        app:layout_constraintTop_toBottomOf="@+id/overallProgress" />
+        app:layout_constraintTop_toBottomOf="@+id/overallProgress"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/tvFinanceProgress"
@@ -191,7 +196,8 @@
         app:layout_constraintBottom_toTopOf="@+id/financialProgress"
         app:layout_constraintEnd_toEndOf="@+id/financialProgress"
         app:layout_constraintStart_toStartOf="@+id/financialProgress"
-        app:layout_constraintTop_toBottomOf="@+id/overallProgress" />
+        app:layout_constraintTop_toBottomOf="@+id/overallProgress"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/tvQualityProgress"
@@ -202,8 +208,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/qualityProgress"
         app:layout_constraintEnd_toEndOf="@+id/qualityProgress"
+        app:layout_constraintHorizontal_bias="0.547"
         app:layout_constraintStart_toStartOf="@+id/qualityProgress"
-        app:layout_constraintTop_toBottomOf="@+id/healthProgress" />
+        app:layout_constraintTop_toBottomOf="@+id/healthProgress"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/tvQuantityProgress"
@@ -214,8 +222,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/quantityProgress"
         app:layout_constraintEnd_toEndOf="@+id/quantityProgress"
+        app:layout_constraintHorizontal_bias="0.58"
         app:layout_constraintStart_toStartOf="@+id/quantityProgress"
-        app:layout_constraintTop_toBottomOf="@+id/financialProgress" />
+        app:layout_constraintTop_toBottomOf="@+id/financialProgress"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
