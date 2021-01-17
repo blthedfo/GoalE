@@ -1,2 +1,2 @@
 # GoalE
-Goal Application for Mobile Dev
+Goal Application Final Project for Android Mobile Dev
